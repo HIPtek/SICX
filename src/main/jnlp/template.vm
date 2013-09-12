@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="$encoding"?>
+<jnlp
+    spec="1.0+"
+    <!--codebase="file:/home/hahkala/workspace/joni_hhydra_integration/target/jnlp"
+    href="sicx.jnlp"-->>
+  <information>
+    <title>Secure Intercloud Exchange (SICX)</title>
+    <vendor>Hensinki Institute of Physics</vendor>
+    <homepage href="http://www.tekes.fi/ohjelmat/Turvallisuus/Projektit?id=10657965"/>
+  </information>
+  <security>
+     <all-permissions/>
+  </security>
+  <resources>
+    <j2se version="$j2seVersion"/>
+     $dependencies
+  </resources>
+  <!-- SWT for JWebBrowser, different version required for each platform -->
+  <resources os="Windows" arch="x86">
+    <j2se version="1.5+" java-vm-args="-Xmx512m"/>
+    <jar href="lib/swt-4.2-win32-win32-x86_s.jar"/>
+  </resources>
+  <resources os="Windows" arch="x86_64">
+    <j2se version="1.5+" java-vm-args="-Xmx512m"/>
+    <jar href="lib/swt-4.2-win32-win32-x86_64_s.jar"/>
+  </resources>
+  <resources os="Linux" arch="x86">
+    <j2se version="1.5+" java-vm-args="-Xmx512m"/>
+    <jar href="lib/swt-4.2-gtk-linux-x86_s.jar"/>
+  </resources>
+  <resources os="Linux" arch="i386">
+    <j2se version="1.5+" java-vm-args="-Xmx512m"/>
+    <jar href="lib/swt-4.2-gtk-linux-x86_s.jar"/>
+  </resources>
+  <resources os="Linux" arch="x86_64">
+    <j2se version="1.5+" java-vm-args="-Xmx512m"/>
+  </resources>
+  <resources os="Linux" arch="amd64">
+    <j2se version="1.5+" java-vm-args="-Xmx512m"/>
+  </resources>
+<!--  <resources os="Mac OS X" arch="i386">
+    <j2se version="1.5+" java-vm-args="-XstartOnFirstThread -Xmx512m"/>
+    <jar href="lib/swt-4.2-cocoa-macosx_s.jar"/>
+  </resources>
+  <resources os="Mac OS X" arch="x86_64">
+    <j2se version="1.5+" java-vm-args="-XstartOnFirstThread -Xmx512m"/>
+    <jar href="lib/swt-4.2-cocoa-macosx-x86_64_s.jar"/>
+  </resources> -->
+  <application-desc main-class="fi.hip.sicx.vaadin.Launcher">
+    <!-- Set headless if no SICX GUI is wanted -->
+    <!--argument>headless</argument-->
+  </application-desc>
+</jnlp>
+

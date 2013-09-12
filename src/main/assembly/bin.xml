@@ -1,0 +1,50 @@
+<!-- Binary distribution, along with dependency jar files -->
+<assembly>
+    <id>bin</id>
+    <formats>
+        <format>tar.gz</format>
+        <format>zip</format>
+        <format>dir</format>
+    </formats>
+    
+    <includeBaseDirectory>false</includeBaseDirectory>
+    
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>/var/lib/meta/common/lib</outputDirectory>
+        </dependencySet>
+    </dependencySets>
+    
+    <fileSets>
+        <fileSet>
+            <directory>doc/</directory>
+            <outputDirectory>/doc</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>target/site/apidocs</directory>
+            <outputDirectory>/doc/api</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>target/site/style</directory>
+            <outputDirectory>/doc/style</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>target/site/unitTest</directory>
+            <outputDirectory>/doc/unitTest</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>target/site/xref</directory>
+            <outputDirectory>/doc/src-xref</outputDirectory>
+        </fileSet>
+    </fileSets>
+    
+    <files>
+    <!--  
+      <file>
+        <source>target/${project.build.finalName}.jar</source>
+        <outputDirectory>/var/lib/pseudonymity/common/lib</outputDirectory>
+        <fileMode>0644</fileMode>
+      </file>-->
+    </files>
+    
+</assembly>

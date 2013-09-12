@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>fi.hip</groupId>
+  <artifactId>hhydra</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <versioning>
+    <versions>
+      <version>0.0.1-SNAPSHOT</version>
+      <version>0.0.1</version>
+    </versions>
+    <lastUpdated>20130611105930</lastUpdated>
+  </versioning>
+</metadata>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<SLCSClientConfiguration>
+
+    <!-- Extended Trust configuration for the HTTP agent -->
+    <HttpClient>
+        <!-- Absolute filename or file in CLASSPATH -->
+        <TrustStoreFile>truststore.slcs.jks</TrustStoreFile>
+    </HttpClient>
+
+    <!-- Default directory to store the key and certificate -->
+    <StoreDirectory>${user.home}/.globus</StoreDirectory>
+    <!-- Default filename for usercert.pem stored in StoreDirectory -->
+    <UserCertFile>trusted_client.cert</UserCertFile>
+    <!-- Default filename for userkey.pem stored in StoreDirectory -->
+    <UserKeyFile>trusted_client.priv</UserKeyFile>
+    <!-- Default filename for PKCS12 (.p12) cred stored in StoreDirectory -->
+    <UserPKCS12File>usercred.p12</UserPKCS12File>
+    <!-- Default private key size (512, 1024 or 2048 bits) -->
+    <UserKeySize>1024</UserKeySize>
+
+    <!-- Pseudo Metadata for the Shibboleth federation description -->
+    <ShibbolethClientMetadata filename="slcs-metadata.xml"/>
+
+</SLCSClientConfiguration>

@@ -1,0 +1,23 @@
+<ShibbolethClientMetadata>
+
+    <!-- The SLCS server (Shibboleth SP) -->
+    <ServiceProvider id="slcs">
+        <name>SICX SLCS Server</name>
+        <url>http://sicx2.hip.helsinki.fi/slcs/login</url>
+    </ServiceProvider>
+    
+    <!-- Shibboleth IdP definitions -->
+    <IdentityProviders> 
+        <IdentityProvider id="sicx">
+            <name>Virtual Home Organization</name>
+            <url>http://sicx2.hip.helsinki.fi/idp/profile/Shibboleth/SSO</url>
+            <authentication type="FORM">
+                <url>http://sicx2.hip.helsinki.fi/idp/Authn/UserPassword</url>
+                <form name="">
+                    <username>j_username</username>
+                    <password>j_password</password>
+                </form>                
+            </authentication> 
+        </IdentityProvider>
+    </IdentityProviders>
+ </ShibbolethClientMetadata>

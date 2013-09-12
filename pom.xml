@@ -1,0 +1,609 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>fi.hip.sicx</groupId>
+	<artifactId>sicx-client</artifactId>
+	<version>0.5.0</version>
+	<packaging>jar</packaging>
+
+	<name>sicx-client</name>
+	<url>http://eu-emi.eu</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<vaadin.version>6.7.1</vaadin.version>
+		<gwt.version>2.3.0</gwt.version>
+		<gwt.plugin.version>2.2.0</gwt.plugin.version>
+	</properties>
+
+	<developers>
+		<developer>
+			<id>joni</id>
+			<name>Joni Hahkala</name>
+			<email>joni.hahkala@cern.ch</email>
+			<organization>UH.HIP</organization>
+			<organizationUrl>http://tek.hip.fi/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+				<role>Documentation</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<id>eetu</id>
+			<name>eetu</name>
+			<organization>UH.HIP</organization>
+			<organizationUrl>http://tek.hip.fi/</organizationUrl>
+			<roles>
+				<role>Developer</role>
+				<role>Documentation</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+
+	<dependencies>
+<!-- 		<dependency>
+			<groupId>axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>1.4</version>
+		</dependency>-->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+		</dependency>
+		<dependency>
+			<groupId>tiemens</groupId>
+			<artifactId>secretshare</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<!-- The metadata service -->
+		<dependency>
+			<groupId>fi.hip</groupId>
+			<artifactId>meta</artifactId>
+			<version>0.5.0</version>
+		</dependency>
+
+		<!-- The hhydra service -->
+		<dependency>
+			<groupId>fi.hip</groupId>
+			<artifactId>hhydra</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<!-- the json library from json.org -->
+		<!-- The following 4 are for JWebBrowser -->
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>swt-linux-64</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf</groupId>
+			<artifactId>DJ</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf</groupId>
+			<artifactId>DJ-SWT</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.onionnetworks</groupId>
+			<artifactId>common</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>EDU.oswego</groupId>
+			<artifactId>concurrent</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!-- dependency>
+			<groupId>org.glite.security</groupId>
+			<artifactId>trustmanager-axis</artifactId>
+			<version>1.0</version>
+		</dependency-->
+
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+			<classifier>sources</classifier>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.vaadin.addons</groupId>
+			<artifactId>refresher</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.vaadin.addons</groupId>
+			<artifactId>paperstack</artifactId>
+			<version>0.8.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty.aggregate</groupId>
+			<artifactId>jetty-all</artifactId>
+			<version>7.6.2.v20120308</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jclouds</groupId>
+			<artifactId>jclouds-allblobstore</artifactId>
+			<version>1.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+		<!-- gwt needed for webstart at least -->
+		<!-- gwt-dev only needed for compiling and development, gwt-user needed 
+			runtime -->
+		<!-- dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
+			<version>${gwt.version}</version>
+		</dependency-->
+		<!-- dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwt.version}</version>
+		</dependency-->
+
+		<!-- The user interface/client library -->
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin</artifactId>
+			<version>6.7.7</version>
+		</dependency>
+
+		<!-- needed for certificate based auth using pem files etc -->
+		<dependency>
+			<groupId>org.glite.security</groupId>
+			<artifactId>trustmanager</artifactId>
+			<version>3.1.3</version>
+		</dependency>
+
+		<!-- needed by trustmanager and other crypto -->
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk16</artifactId>
+			<version>1.46</version>
+		</dependency>
+
+		<!-- the protocol used by meta and hhydra -->
+		<dependency>
+			<groupId>com.caucho</groupId>
+			<artifactId>hessian</artifactId>
+			<version>4.0.7</version>
+		</dependency>
+
+		<!-- universally unique ID library -->
+		<dependency>
+			<groupId>com.eaio.uuid</groupId>
+			<artifactId>uuid</artifactId>
+			<version>3.3</version>
+		</dependency>
+
+		<!-- slcs used for federated identity -->
+		<dependency>
+			<groupId>org.glite.slcs</groupId>
+			<artifactId>glite-slcs-common</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glite.slcs</groupId>
+			<artifactId>glite-slcs-ui</artifactId>
+			<version>1.5.0</version>
+		</dependency>
+
+		<!-- The webdav implementation -->
+		<dependency>
+			<groupId>com.ettrema</groupId>
+			<artifactId>milton-api</artifactId>
+			<version>1.8.1.4</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.ettrema</groupId>
+			<artifactId>milton-servlet</artifactId>
+			<version>1.8.1.4</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>io.milton</groupId>
+			<artifactId>milton-client</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+
+		<!-- used by checkfile in hipstoreclient, dunno why -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>org.json</artifactId>
+			<version>chargebee-1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>net.java.dev.jna</groupId>
+			<artifactId>jna</artifactId>
+			<version>3.2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-cli</groupId>
+			<artifactId>commons-cli</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<finalName>sicx-client</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>webstart-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<!-- bind to phase, I prefer to call it manualls -->
+						<phase>package</phase>
+						<goals>
+							<goal>jnlp</goal> <!-- use jnlp, jnlp-inline or jnlp-single as appropriate -->
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<!--outputDirectory></outputDirectory --> <!-- not required?? -->
+
+					<!-- Set to true to exclude all transitive dependencies. Default is 
+						false. -->
+					<excludeTransitive>false</excludeTransitive>
+
+					<!-- The path where the libraries are stored within the jnlp structure. 
+						not required. by default the libraries are within the working directory -->
+					<libPath>lib</libPath>
+					<outputJarVersions>true</outputJarVersions>
+					<!-- [optional] transitive dependencies filter - if omitted, all transitive 
+						dependencies are included -->
+					<dependencies>
+						<!-- Note that only groupId and artifactId must be specified here. 
+							because of a limitation of the Include/ExcludesArtifactFilter -->
+						<!-- <includes> <include>commons-logging:commons-logging</include> 
+							<include>commons-cli:commons-cli</include> </includes> -->
+						<excludes>
+							<!-- exclude>com.google.gwt:gwt-dev</exclude-->
+						</excludes>
+					</dependencies>
+
+					<!-- <resourcesDirectory>${project.basedir}/src/main/jnlp/resources</resourcesDirectory> -->
+					<!-- default value -->
+					<sign>
+						<keystore>${project.build.directory}/keyStore</keystore> <!-- path or URI (if empty, the default keystore ".keystore"-file in the 
+							user-homedir is used) -->
+						<keypass>password</keypass>  <!-- we need to override passwords easily from the command line. ${keypass} -->
+						<storepass>password</storepass> <!-- ${storepass} -->
+						<alias>webstart</alias> <!-- alias of the key to use -->
+
+						<!-- the following key-settings are only used if the keystore and key 
+							has to be generated at build-time -->
+						<!--storetype>jks</storetype> <validity>365</validity> -->
+
+						<!--validity>fillme</validity -->
+
+						<!-- only required for generating the keystore -->
+						<dnameCn>sicx</dnameCn>
+						<dnameOu>HipTek</dnameOu>
+						<dnameO>HIP</dnameO>
+						<dnameC>FI</dnameC>
+
+						<verify>true</verify> <!-- verify that the signing operation succeeded -->
+
+						<!-- KEYSTORE MANAGEMENT -->
+						<keystoreConfig>
+							<!--<delete>true</delete>  delete the keystore -->
+							<gen>true</gen>       <!-- optional shortcut to generate the store. -->
+						</keystoreConfig>
+
+					</sign>
+
+
+
+					<!-- JNLP generation -->
+					<jnlp>
+						<!-- default values -->
+						<!--inputTemplateResourcePath>${project.basedir}</inputTemplateResourcePath -->
+						<inputTemplate>src/main/jnlp/template.vm</inputTemplate> <!-- relative to inputTemplateResourcePath -->
+						<outputFile>sicx.jnlp</outputFile> <!-- defaults to launch.jnlp -->
+
+						<!-- used to automatically identify the jar containing the main class. -->
+						<!-- this is perhaps going to change -->
+						<mainClass>fi.hip.sicx.vaadin.Launcher</mainClass>
+					</jnlp>
+
+					<!-- BUILDING PROCESS -->
+
+					<pack200>false</pack200>
+					<gzip>false</gzip> <!-- default force when pack200 false, true when pack200 selected ?? -->
+
+					<!-- causes a version attribute to be output in each jar resource element, 
+						optional, default is false -->
+					<outputJarVersions>false</outputJarVersions>
+
+					<!-- to fix sha-1 (java 1.6) and sha-256 (java 1.7) demands -->
+					<unsignAlreadySignedJars>true</unsignAlreadySignedJars>
+
+					<!--install>false</install --> <!-- not yet supported -->
+					<verbose>true</verbose>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- <plugin> <artifactId>maven-assembly-plugin</artifactId> <executions> 
+				<execution> <id>make-assembly</id> <phase>package</phase> <goals> <goal>attached</goal> 
+				</goals> </execution> </executions> <configuration> <descriptors> <descriptor>src/main/assembly/bin.xml</descriptor> 
+				<descriptor>src/main/assembly/src.xml</descriptor> </descriptors> <tarLongFileMode>gnu</tarLongFileMode> 
+				</configuration> </plugin> -->
+			<!-- A simple Jetty test server at http://localhost:8080/seppo4 can be 
+				launched with the Maven goal jetty:run and stopped with jetty:stop -->
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<version>6.1.24</version>
+				<configuration>
+					<stopPort>9966</stopPort>
+					<stopKey>sicx</stopKey>
+					<!-- Redeploy every x seconds if changes are detected, 0 for no automatic 
+						redeployment -->
+					<scanIntervalSeconds>0</scanIntervalSeconds>
+					<!-- make sure Jetty also finds the widgetset -->
+					<webAppConfig>
+						<contextPath>/sicx</contextPath>
+						<baseResource implementation="org.mortbay.resource.ResourceCollection">
+							<!-- Workaround for Maven/Jetty issue http://jira.codehaus.org/browse/JETTY-680 -->
+							<!-- <resources>src/main/webapp,${project.build.directory}/${project.build.finalName}</resources> -->
+							<resourcesAsCSV>src/main/webapp,${project.build.directory}/${project.build.finalName}</resourcesAsCSV>
+						</baseResource>
+					</webAppConfig>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- If a new widgetset is added, run 'mvn -Pcompile-widgetset clean package' -->
+	<profiles>
+		<profile>
+			<id>compile-widgetset</id>
+			<build>
+				<plugins>
+					<!-- Compile custom GWT components or widget dependencies with the GWT 
+						compiler -->
+					<!-- Compile custom GWT components or widget dependencies with the GWT 
+						compiler -->
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>gwt-maven-plugin</artifactId>
+						<version>${gwt.plugin.version}</version>
+						<configuration>
+							<webappDirectory>${basedir}/src/main/resources/VAADIN/widgetsets</webappDirectory>
+							<extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
+							<runTarget>sicx</runTarget>
+							<hostedWebapp>${project.build.directory}/${project.build.finalName}</hostedWebapp>
+							<noServer>true</noServer>
+							<port>8080</port>
+							<compileReport>false</compileReport>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>resources</goal>
+									<goal>compile</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>com.vaadin</groupId>
+						<artifactId>vaadin-maven-plugin</artifactId>
+						<version>1.0.2</version>
+						<executions>
+							<execution>
+								<configuration>
+								</configuration>
+								<goals>
+									<goal>update-widgetset</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+
+	<repositories>
+		<repository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Maven Repository Group</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>eaio.com</id>
+			<url>http://eaio.com/maven2</url>
+		</repository>
+		<repository>
+			<id>local</id>
+			<url>file://${project.basedir}/src/main/repo</url>
+		</repository>
+		<repository>
+			<id>vaadin-snapshots</id>
+			<url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>vaadin-addons</id>
+			<url>http://maven.vaadin.com/vaadin-addons</url>
+		</repository>
+		<repository>
+			<id>switch</id>
+			<name>SWITCH Releases</name>
+			<url>http://www.switch.ch/grid/authz/docs/maven2/release</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>milton-repo</id>
+			<url>http://milton.io/maven</url>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Maven Repository Group</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>codehaus-snapshots</id>
+			<url>http://nexus.codehaus.org/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</pluginRepository>
+		<pluginRepository>
+			<id>vaadin-snapshots</id>
+			<url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<links>
+						<link>http://java.sun.com/j2se/1.5.0/docs/api/</link>
+					</links>
+					<quiet>true</quiet>
+					<aggregate>true</aggregate>
+					<author>false</author>
+					<version>true</version>
+					<doctitle>${project.name} ${project.version} Java API.</doctitle>
+					<windowtitle>${project.name} ${project.version} Java API.</windowtitle>
+					<overview>src/main/java/overview.html</overview>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<configuration>
+					<aggregate>true</aggregate>
+					<outputDirectory>${project.reporting.outputDirectory}/xref</outputDirectory>
+					<doctitle>${project.name} ${project.version} Code Cross-Reference</doctitle>
+					<windowtitle>${project.name} ${project.version} Java API.</windowtitle>
+					<javadocDir>${project.reporting.outputDirectory}/apidocs</javadocDir>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<configuration>
+					<aggregate>true</aggregate>
+					<outputDirectory>${project.reporting.outputDirectory}/unitTest</outputDirectory>
+					<xrefLocation>${project.reporting.outputDirectory}/xref</xrefLocation>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+
+	<licenses>
+		<license>
+			<name>Apache 2</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>EMI Collaboration</name>
+		<url>http://www.eu-emi.eu/</url>
+	</organization>
+</project>

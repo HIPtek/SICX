@@ -1,0 +1,329 @@
+3rd Party License Information
+
+SICX Cloud Gateway components, namely "meta", "sicx", and "hydra", use
+the following 3rd-party components:
+
+Project: gLite - Lightweight Middleware for Grid Computing
+Site:    http://glite.cern.ch/
+Summary: gLite provides a framework for building grid applications
+         tapping into the power of distributed computing and storage
+         resources across the Internet. In SICX glite is used to
+         manage list of trusted Certificate Authorities (CAs),
+	 handle hydra meta-data and Short Lived Credentials.
+Files:   meta, sicx: org.glite.security.trustmanager.*
+         meta, sicx: org.glite.security.util.*
+	 sicx: org.glite.data.*
+	 sicx: org.glite.slcs.*
+License: Apache2 http://www.apache.org/licenses/LICENSE-2.0
+
+Project: UUID - Generate UUIDs (or GUIDs) in Java
+Site:    http://johannburkard.de/software/
+Summary: UUIDs are 128 bit long identifiers that are guaranteed to be
+	 unique. UUIDs (Universally Unique IDentifier), also known as
+	 GUIDs (Globally Unique IDentifier). In SICX UUIDs are used to
+	 generate unique identifier for each file stored in SICX.
+Files:   meta, sicx: com.eaio.uuid.UUID
+License: MIT http://www.opensource.org/licenses/mit-license.php
+
+Project: Hessian protocol by Caucho Technology Inc.
+Site:    http://hessian.caucho.com/
+Summary: Hessian is a simple binary protocol for connecting web
+	 services. In SICX the Hessian protocol is used to communicate
+	 meta data.
+Files:   meta, sicx: com.caucho.hessian.client.*
+         meta: com.caucho.hessian.server.*
+License: Apache http://www.apache.org/licenses/
+
+Project: Infinispan - Transactional in-memory key/value NoSQL datastore & Data Grid
+Site:    http://www.jboss.org/infinispan/
+Summary: At its core Infinispan exposes a Cache interface which
+         extends java.util.Map. In SICX this Cache is used to store
+         UUID and MetaFile pairs. The Infinispan cache scalability
+         feature guarantees that more performance can be introduced
+	 by just adding new server instances.
+Files:   meta: org.infinispan.Cache
+         meta: org.infinispan.manager.DefaultCacheManager
+License: LGPL 2.1 http://www.jboss.org/infinispan/license.html
+
+Project: JUnit
+Site:    http://junit.org/
+Summary: Framework to write repeatable tests. In SICX this is used to
+	 implement repeateable and automated unit tests.
+Files:   meta, sicx: org.junit.*;
+         meta: junit.framework.TestCase;
+License: CPL (Common Public License) http://en.wikipedia.org/wiki/Common_Public_License
+
+Project: Bouncy Castle Crypto API
+Site:    http://www.bouncycastle.org/
+Summary: A lightweight cryptography API.
+Files:   meta, sicx: N/A (org.bouncycastle)
+License: MIT X11 http://www.bouncycastle.org/licence.html
+
+Project: Simple Logging Facade for Java (SLF4J).
+Site:    http://www.slf4j.org/
+Summary: SLF4J serves as an abstraction for various logging
+ 	 frameworks, e.g. java.util.logging, log4j and logback,
+ 	 allowing the end user to plug in the desired logging
+ 	 framework at the deployment time. 
+Files:   meta: org.slf4j.Logger
+	 meta: org.slf4j.LoggerFactory
+License: MIT http://www.slf4j.org/license.html
+
+Project: log4j - logging library for Java
+Site:    http://logging.apache.org/log4j/1.2/
+Summary: With log4j it is possible to enable logging at runtime
+	 without modifying the application binary. Thus logging can
+	 remain in shipped code without incurring a heavy performance
+	 cost. 
+Files:   meta: N/A (org. log4j)
+License: Apache2 http://www.apache.org/licenses/LICENSE-2.0
+
+Project: log4j-over-slf4j
+Site:    http://www.slf4j.org/legacy.html
+Summary: Allows log4j users to migrate existing applications to SLF4J
+         without changing a single line of code.
+Files:   meta: N/A (org.slf4j)
+License: http://www.apache.org/licenses/LICENSE-2.0.txt
+
+Project: Jetty - Web server and javax.servlet container
+Site:    http://eclipse.org/jetty/
+Summary: Full-featured, standards-based, open source and commercially
+         usable servlet container. 
+Files:   meta, sicx: N/A (org.eclipse.jetty.aggregate)
+License: Apache2&EPL http://eclipse.org/jetty/licenses.php
+
+Project: JCommander - Because life is too short to parse command line parameters
+Site:    http://jcommander.org/
+Summary: Small Java framework that makes it trivial to parse command
+	 line parameters. It is used in SICX to parse command line
+	 parameters.
+Files:   meta: com.beust.jcommander.JCommander
+	 meta: com.beust.jcommander.Parameter
+License: Apache2 http://jcommander.org/#License
+
+Project: Apache Axis (Apache eXtensible Interaction System)
+Site:    http://axis.apache.org/axis/
+Summary: An implementation of the SOAP ("Simple Object Access
+	 Protocol"). In SICX SOAP protocol is used to connect to hydra
+	 key-servers.
+Files:   sicx: org.apache.axis.AxisFault
+	 sicx: org.apache.axis.configuration.SimpleProvider
+License: Apache2 http://www.apache.org/licenses/LICENSE-2.0
+
+Project: Shamir's Secret Share (SSS)
+Site:    http://sourceforge.net/apps/trac/secretsharejava/
+Summary: Implementation of Shamir's Secret Sharing algorithm as
+         described in Applied Cryptography. Is used in SICX to split
+         the file encryption keys to n- hydra servers (of which p<=n
+         parts are required for reconstructing the key).
+Files:   sicx: com.tiemens.secretshare.engine.SecretShare
+License: LGPLv2 http://www.gnu.org/licenses/lgpl-2.1.html
+
+Project: JSON (JavaScript Object Notation) 
+Site:    http://json.org/java/
+Summary: JSON is a lightweight data-interchange format. In SICX JSON
+	 is used to store files to HIP storage (open source data
+	 storage distributed).
+Files:   sicx: org.json.*
+License: Custom JSON license http://www.json.org/license.html
+
+Project: JWebBrowser (The DJ Project Native Swing)
+Site:    http://djproject.sourceforge.net/ns/index.html
+Summary: Cross-platform Web Browser. It is used in SICX to launch GUIs
+         without needing existing web browsers to be installed.
+Files:   sicx: chrriis.common.UIUtils
+	 sicx: chrriis.dj.nativeswing.swtimpl.NativeInterface
+	 sicx: chrriis.dj.nativeswing.swtimpl.components.JWebBrowser
+License: LGPLv2 http://www.gnu.org/licenses/lgpl-2.1.html
+
+Project: Java Native Access (JNA) 
+Site:    https://jna.java.net/
+Summary: Provides easy access to native shared libraries 
+	 without using the Java JNI. In SICX JNA is used by
+	 JWebBrowser.
+Files:   sicx: N/A (com.sun.jna.*)
+License: LGPLv2 http://www.gnu.org/licenses/lgpl-2.1.html
+
+Project: SWT: The Standard Widget Toolkit
+Site:    http://www.eclipse.org/swt/
+Summary: SWT is a graphical widget toolkit (AWT and Swing
+	 alternative). In SICX it is used by JWebBrowser.
+Files:   sicx: N/A (org.eclipse.swt.*)
+License: EPL (Eclipse Public License) http://en.wikipedia.org/wiki/Eclipse_Public_License
+
+Project: Onionnetworks Java Forward Error Correction (FEC) Library
+Site:    https://bitbucket.org/onionnetworks/fec/
+Summary: FEC library to encode/decode files. It is used in SICX to
+	 split files to n-parts, of which k<=n is required to
+	 reconstruct the file.
+Files:   sicx: com.onionnetworks.fec.*
+	 sicx: com.onionnetworks.io.*
+	 sicx: com.onionnetworks.util.*
+License: Custom Onionnetworks license https://bitbucket.org/onionnetworks/fec/src/ => LICENSE
+
+Project: Package util.concurrent by Doug Lea
+Site:    http://gee.cs.oswego.edu/dl/classes/EDU/oswego/cs/dl/util/concurrent/intro.html
+
+Summary: A precursor to java.util.concurrent. It is used in SICX by
+	 the Onionnetworks FEC library.
+Files:   sicx: EDU.oswego.cs.dl.util.concurrent.*
+License: SUN http://gee.cs.oswego.edu/dl/classes/EDU/oswego/cs/dl/util/sun-u.c.license.pdf
+
+Project: Google Web Toolkit
+Site:    https://developers.google.com/web-toolkit/
+Summary: Toolkit for building complex browser-based applications. In
+	 SICX it is used to encode and decode URLs.
+Files:   sicx: com.google.gwt.http.client.URL
+License: Apache2 http://www.apache.org/licenses/LICENSE-2.0
+
+Project: Refresher - Vaadin addon
+Site:    http://vaadin.com/addon/refresher
+Summary: Addon to reflect server side changes to GUI. In SICX the
+	 addon is used to update the file processing progress status
+	 to the file transfer Vaadin GUI.
+Files:   sicx: com.github.wolfie.refresher.*
+License: Apache2 http://www.apache.org/licenses/LICENSE-2.0.html
+
+Project: Apache HttpComponents
+Site:    http://hc.apache.org/
+Summary: Toolset of low level Java components focused on HTTP and
+	 associated protocols. In SICX it is used to handle webdav
+	 parameters.
+Files:   sicx: org.apache.http.params.*
+License: Apache2 http://www.apache.org/licenses/LICENSE-2.0
+
+Project: jClouds
+Site:    http://www.jclouds.org/
+Summary: API abstraction for tens of cloud storages. In SICX it is
+	 used to access 3rd party cloud storages.
+Files:   sicx: org.jclouds.*
+License: Apache2 https://github.com/jclouds/jclouds/blob/master/resources/LICENSE.txt
+
+Project: Apache Commons Logging (JCL)
+Site:    http://commons.apache.org/proper/commons-logging/
+Summary: A bridge between different logging implementations. It is
+	 used in SICX by the Onionnetworks FEC library.
+Files:   sicx: org.apache.commons.logging.*
+License: Apache2 http://www.apache.org/licenses/LICENSE-2.0
+
+Project: Vaadin
+Site:    https://vaadin.com/
+Summary: Framework for building web applications. In SICX it is used
+	 to provide a file transfer GUI.
+Files:   sicx: com.vaadin.*
+License: Apache2 https://vaadin.com/license
+
+Project: Milton
+Site:    http://milton.io/
+Summary: Webdav server library. In SICX it is used to provide webdav
+	 server that can be used to mount SICX as a local folder and
+	 also as webdav client library to interface with ownCloud
+	 webdav server.
+Files:   sicx: io.milton.*
+	 sicx: com.bradmcevoy.*
+License: Apache2 http://milton.io/about/license/index.html
+
+Project: Apache Commons Configuration
+Site:    http://commons.apache.org/proper/commons-configuration/
+Summary: Enables to access configuration properties from a variety of
+	 different sources. In SICX
+Files:   sicx: N/A
+License: Apache2 http://www.apache.org/licenses/LICENSE-2.0
+
+Project: Apache Commons HttpClient
+Site:    http://hc.apache.org/httpclient-3.x/
+Summary: Earlier HTTP toolset preceding Apache HttpComponents.
+Files:   sicx: N/A
+License: Apache2 http://www.apache.org/licenses/LICENSE-2.0
+
+Project: Apache Commons IO
+Site:    http://commons.apache.org/proper/commons-io/
+Summary: Commons IO is a library of utilities to assist with
+	 developing IO functionality.
+Files:   sicx: N/A
+License: Apache2 http://www.apache.org/licenses/LICENSE-2.0
+
+Project: Apache Commons CLI
+Site:    http://commons.apache.org/proper/commons-cli/
+Summary: API for parsing command line options passed to programs. In SICX
+	 used by the "webstart-maven-plugin".
+Files:   sicx: N/A (commons-cli)
+License: Apache2 http://www.apache.org/licenses/LICENSE-2.0
+
+Maven plugins:
+==============
+
+Project: Maven Assembly Plugin
+Site:    http://maven.apache.org/plugins/maven-assembly-plugin/
+Summary: Aggregate the project output along with its dependencies,
+         modules, site documentation, and other files into a single
+         distributable archive. In SICX it is used to deliver server,
+	 like e.g. meta server, as one jar file.
+Files:   meta, sicx: org.apache.maven.plugins
+         meta, sicx plugin: maven-assembly-plugin
+License: Apache2 http://maven.apache.org/plugins/maven-assembly-plugin/license.html
+
+Project: Maven Compiler Plugin
+Site:    http://maven.apache.org/plugins/maven-compiler-plugin/
+Summary: Compiler Plugin is used to compile the sources of the
+	 projects. This is the case in SICX also.
+Files:   meta, sicx: org.apache.maven.plugins
+	 meta, sicx plugin: maven-compiler-plugin
+License: Apache2 http://maven.apache.org/plugins/maven-compiler-plugin/license.html
+
+Project: Maven JAR Plugin
+Site:    http://maven.apache.org/plugins/maven-jar-plugin/
+Summary: This plugin provides the capability to build and sign jars.
+	 In SICX it is used to deliver server, like e.g. meta server,
+	 as one jar file.
+Files:   meta, sicx: org.apache.maven.plugins
+	 meta, sicx plugin: maven-jar-plugin
+License: Apache2 http://maven.apache.org/plugins/maven-jar-plugin/license.html
+
+Project: Maven Javadoc Plugin
+Site:    http://maven.apache.org/plugins/maven-javadoc-plugin/
+Summary: Javadoc Plugin uses the Javadoc tool to generate javadocs for
+	 the specified project. In SICX it is also used to generate docs
+	 for the software.
+Files:   meta, sicx: org.apache.maven.plugins
+	 meta sicx plugin: maven-javadoc-plugin
+License: Apache2 http://maven.apache.org/plugins/maven-javadoc-plugin/license.html
+
+Project: Maven JXR Plugin
+Site:    http://maven.apache.org/plugins/maven-jxr-plugin/
+Summary: The JXR Plugin produces a cross-reference of the project's
+	 sources. In SICX it is used to have the source code
+	 accessible in the javadoc documentation.
+Files:   meta, sicx: org.apache.maven.plugins
+	 meta, sicx plugin: maven-jxr-plugin
+License: Apache2 http://maven.apache.org/plugins/maven-jxr-plugin/license.html
+
+Project: Maven Surefire Report Plugin
+Site:    http://maven.apache.org/surefire/maven-surefire-report-plugin/
+Summary: Generates the test results report into HTML format.
+	 In SICX it is used to have the test reported in human
+	 readable format (see target/surefire-reports/).
+Files:   meta, sicx: org.apache.maven.plugins
+	 meta, sicx plugin: maven-surefire-report-plugin
+License: Apache2 http://maven.apache.org/plugins/maven-surefire-report-plugin/license.html
+
+Project: Webstart Maven Plugin
+Site:    http://mojo.codehaus.org/webstart/webstart-maven-plugin/
+Summary: Generates application bundles that can be deployed via Web
+	 Start. It is used to package SICX for web start.
+Files:   sicx: org.codehaus.mojo
+License: Apache2 http://mojo.codehaus.org/webstart/webstart-maven-plugin/license.html
+
+Project: Maven Jetty Plugin (by Codehaus)
+Site:    http://jetty.codehaus.org/jetty/maven-plugin/
+Summary: Enables to use "mvn jetty:run" when files are put in
+	 "src/main/webapp". In SICX this maven target is used.
+Files:   sicx: org.mortbay.jetty
+License: Apache2 http://jetty.codehaus.org/jetty/maven-plugin/license.html
+
+Project: Maven Vaadin plugin
+Site:    https://vaadin.com/wiki/-/wiki/Main/Using%20Vaadin%20with%20Maven
+Summary: Create Vaadin web-applications and generate new
+	 widgetsets. In SICX both of these features are used.
+Files:   sicx: vaadin-maven-plugin
+License: Apache2 http://www.apache.org/licenses/LICENSE-2.0.txt
