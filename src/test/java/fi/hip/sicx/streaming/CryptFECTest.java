@@ -85,7 +85,6 @@ public class CryptFECTest {
     @Test
     public void testCryptFECs() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException,
             InvalidAlgorithmParameterException, IOException {
-        testCryptFEC(BUFF_SIZE * 500 + 2256);
         testCryptFEC(BUFF_SIZE * 5 - 3);
         testCryptFEC(BUFF_SIZE * 5 - 3);
         testCryptFEC(5);
@@ -93,7 +92,10 @@ public class CryptFECTest {
         testCryptFEC(BUFF_SIZE * 5 - 20);
         testCryptFEC(BUFF_SIZE * 5 - 256);
         testCryptFEC(BUFF_SIZE * 5 - 255);
+//        testCryptFEC(BUFF_SIZE * 500 + 2256);
+//        testCryptFEC(BUFF_SIZE * 50000 + 2256);
         testCryptFEC(905);
+//        testCryptFECMissStripe(BUFF_SIZE * 50000 + 2256);
     }
 
 
@@ -182,8 +184,8 @@ public class CryptFECTest {
         File endFile = new File("target/cryptTestOutput.dat");
         assertEquals(endFile.length(), size);
         System.out.println("Random file generation : " + (startStriping.getTime() - start.getTime()) + "ms");
-        System.out.println("Striping               : " + (startConst.getTime() - startStriping.getTime()) + "ms");
-        System.out.println("Reconstruction         : " + (endConst.getTime() - startConst.getTime()) + "ms");
+        System.out.println("Striping  crypt        : " + (startConst.getTime() - startStriping.getTime()) + "ms");
+        System.out.println("Reconstruction  crypt  : " + (endConst.getTime() - startConst.getTime()) + "ms");
 
         for (int i = 0; i < stripeN; i++) {
             File stripeFile = new File("target/cryptTestStripe." + i);
@@ -198,10 +200,10 @@ public class CryptFECTest {
 
     }
 
-    @Test
-    public void testCryptFECMissStripe() throws NoSuchAlgorithmException, IOException, InvalidKeyException,
+
+    public void testCryptFECMissStripe(int inSize) throws NoSuchAlgorithmException, IOException, InvalidKeyException,
             NoSuchPaddingException, InvalidAlgorithmParameterException {
-        int size = 283749;
+        int size = inSize;
         int keyLength = 256;
         String algorithm = "AES";
         String cipher = "AES/CBC/PKCS5Padding";
@@ -288,9 +290,9 @@ public class CryptFECTest {
         } while (origReadLen == 3456);
         File endFile = new File("target/cryptTestOutput.dat");
         assertEquals(endFile.length(), size);
-        System.out.println("Random file generation : " + (startStriping.getTime() - start.getTime()) + "ms");
-        System.out.println("Striping               : " + (startConst.getTime() - startStriping.getTime()) + "ms");
-        System.out.println("Reconstruction         : " + (endConst.getTime() - startConst.getTime()) + "ms");
+        System.out.println("Random file generation    : " + (startStriping.getTime() - start.getTime()) + "ms");
+        System.out.println("Striping   crypt miss     : " + (startConst.getTime() - startStriping.getTime()) + "ms");
+        System.out.println("Reconstruction crypt miss : " + (endConst.getTime() - startConst.getTime()) + "ms");
 
         for (int i = 0; i < stripeN; i++) {
             File stripeFile = new File("target/cryptTestStripe." + i);

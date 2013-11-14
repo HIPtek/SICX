@@ -39,7 +39,7 @@ import org.joni.test.meta.*;
  * @author Joni Hahkala <joni.hahkala@cern.ch>
  * @author Seppo Heikkila <seppo.heikkila@cern.ch> 
  */
-@Ignore
+
 public class MetaDataClientTest implements StorageClientObserver {
 
 	@Test 

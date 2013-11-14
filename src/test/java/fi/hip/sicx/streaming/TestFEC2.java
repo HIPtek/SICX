@@ -23,8 +23,14 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Random;
+
+import javax.crypto.NoSuchPaddingException;
 
 import org.junit.Test;
 
@@ -39,32 +45,58 @@ import com.onionnetworks.util.Buffer;
  */
 public class TestFEC2 {
     private static Random rand = new Random();
+    static int BUFF_SIZE = 10223;
 
-    @Test
-    public void testFileStreamFEC() throws IOException, InterruptedException {
-        // k = number of source packets to encode
-        // n = number of packets to encode to
-        int k = 5;
-        int n = 7;
-        int packeSize = 10240;
-
+    public void generateTestFile(long size) throws IOException {
         // create test file of random values of size 25*packetsize+2534 = 258534
-        byte randBuffer[] = new byte[packeSize];
-        
-        File file = new File("target/fecTestData.dat");
+        byte randBuffer[] = new byte[BUFF_SIZE];
 
         FileOutputStream outStream = new FileOutputStream("target/fecTestData.dat");
 
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < size / BUFF_SIZE; i++) {
+            // for (int i = 0; i < 500; i++) {
+            // for (int i = 0; i < 0; i++) {
             rand.nextBytes(randBuffer);
             outStream.write(randBuffer);
         }
 
         rand.nextBytes(randBuffer);
-        outStream.write(randBuffer, 0, 2534);
+        // Arrays.fill(randBuffer, (byte)64);
+        outStream.write(randBuffer, 0, (int) size % BUFF_SIZE);
+        // outStream.write(randBuffer, 0, 2535);
+        // outStream.write(randBuffer, 0, 5);
         outStream.flush();
         outStream.close();
-        long fileSize = file.length();
+
+    }
+
+    @Test
+    public void testCryptFECs() throws IOException, InterruptedException {
+        testFileStreamFEC(BUFF_SIZE * 5 - 3);
+        testFileStreamFEC(BUFF_SIZE * 5 - 3);
+        testFileStreamFEC(5);
+        testFileStreamFEC(BUFF_SIZE * 5 - 8);
+        testFileStreamFEC(BUFF_SIZE * 5 - 20);
+        testFileStreamFEC(BUFF_SIZE * 5 - 256);
+        testFileStreamFEC(BUFF_SIZE * 5 - 255);
+//        testFileStreamFEC(BUFF_SIZE * 500 + 2256);
+//        testFileStreamFEC(BUFF_SIZE * 50000 + 2256);
+        testFileStreamFEC(905);
+    }
+   
+    
+    public void testFileStreamFEC(int size) throws IOException, InterruptedException {
+        // k = number of source packets to encode
+        // n = number of packets to encode to
+        int k = 5;
+        int n = 7;
+        int packetSize = BUFF_SIZE;
+        int extraSize = 256;
+
+        Date start = new Date();
+        generateTestFile(size);
+
+        Date startStriping = new Date();
 
         // create stripe streams
         FileOutputStream stripeStreams[] = new FileOutputStream[n];
@@ -74,10 +106,14 @@ public class TestFEC2 {
         }
 
         // create input stream
+        File file = new File("target/fecTestData.dat");
+        System.out.println("File size is: " + file.length());
+        long fileSize = file.length();
         FileInputStream inStream = new FileInputStream("target/fecTestData.dat");
 
         // stripe the input stream to the output streams
-        long paddingSize = StreamingFEC.stripe(inStream, stripeStreams, packeSize, k, n, 258534 + 256);
+        long paddingSize = StreamingFEC.stripe(inStream, stripeStreams, packetSize, k, n, fileSize
+                + extraSize);
         System.out.println("padding size = " + paddingSize);
 
         inStream.close();
@@ -85,6 +121,7 @@ public class TestFEC2 {
             stripeStreams[i].flush();
             stripeStreams[i].close();
         }
+        Date startConst = new Date();
 
         FileOutputStream outputStream = new FileOutputStream("target/fecTestOutput.dat");
 
@@ -94,15 +131,16 @@ public class TestFEC2 {
             stripeInStreams[i] = new FileInputStream("target/fecTestStripe." + i);
         }
 
-        long constructedSize = StreamingFEC.construct(stripeInStreams, outputStream, packeSize, k, n, fileSize + 256 - paddingSize);
+        long constructedSize = StreamingFEC.construct(stripeInStreams, outputStream, packetSize, k, n, size + 256 - paddingSize);
 
         for (int i = 0; i < n; i++) {
             stripeInStreams[i].close();
         }
         outputStream.flush();
         outputStream.close();
+        Date endConst = new Date();
 
-        assertEquals(fileSize, constructedSize);
+        assertEquals(size, constructedSize);
 
         InputStream startStream = new FileInputStream("target/fecTestData.dat");
         InputStream endStream = new FileInputStream("target/fecTestOutput.dat");
@@ -117,6 +155,11 @@ public class TestFEC2 {
 
             assertTrue(Arrays.equals(bufferStart, bufferEnd));
         } while (startRead == 3456);
+        System.out.println("Random file generation : " + (startStriping.getTime() - start.getTime()) + "ms");
+        System.out.println("Striping  plain        : " + (startConst.getTime() - startStriping.getTime()) + "ms");
+        System.out.println("Reconstruction  plain  : " + (endConst.getTime() - startConst.getTime()) + "ms");
+
+        
         for (int i = 0; i < n; i++) {
             File stripeFile = new File("target/fecTestStripe." + i);
             stripeFile.delete();
