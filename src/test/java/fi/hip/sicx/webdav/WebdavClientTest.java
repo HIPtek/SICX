@@ -4,26 +4,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import fi.hip.sicx.store.StorageClient;
-import fi.hip.sicx.store.StorageClientObserver;
 import fi.hip.sicx.store.StorageIOException;
 
-import io.milton.http.exceptions.BadRequestException;
-import io.milton.http.exceptions.ConflictException;
-import io.milton.http.exceptions.NotAuthorizedException;
-import io.milton.http.exceptions.NotFoundException;
-import io.milton.httpclient.Folder;
-import io.milton.httpclient.HttpException;
-import io.milton.httpclient.Resource;
-
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -76,7 +63,7 @@ public class WebdavClientTest {
 	@Test
 	public void testMultipleConnectionOneAfterEachOther() {
 		int test_connections = 3;
-		ArrayList<StorageClient> clients = new ArrayList();
+		ArrayList<StorageClient> clients = new ArrayList<StorageClient>();
 		for(int i = 0; test_connections > i; i++) {
 			StorageClient sc = new WebdavClient("localhost/oc452/remote.php/webdav/", 80, "estorage", "sicx", "Shared/GDy");
 			assertTrue(sc.connect());
@@ -98,8 +85,8 @@ public class WebdavClientTest {
 			throws StorageIOException, IOException, InterruptedException {
 		int test_connections = 7; // Number of connections to test
 		
-		ArrayList<StorageClient> clients = new ArrayList();
-		ArrayList<OutputStream> outs = new ArrayList();
+		ArrayList<StorageClient> clients = new ArrayList<StorageClient>();
+		ArrayList<OutputStream> outs = new ArrayList<OutputStream>();
 		File f = new File("/home/ssheikki/CV.pdf");
 		for(int i = 0; test_connections > i; i++) {
 			StorageClient sc = new WebdavClient("localhost/c/remote.php/webdav/", 80, "estorage", "sicx", "Shared/GDSsheikki");

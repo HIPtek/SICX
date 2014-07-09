@@ -11,7 +11,7 @@ public class BlockDigestInputStream extends FilterInputStream {
 
     protected MessageDigest md;
     protected int blockSize, byteCount;
-    ArrayList digestList = new ArrayList();
+    ArrayList<Buffer> digestList = new ArrayList<Buffer>();
     Buffer[] digests = null;
 
     public BlockDigestInputStream(InputStream is, String algorithm, 

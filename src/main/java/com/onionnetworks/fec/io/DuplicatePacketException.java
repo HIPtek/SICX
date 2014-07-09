@@ -12,7 +12,8 @@ import java.io.IOException;
  */
 public class DuplicatePacketException extends IOException {
     
-    int blockNum, stripeNum, packetIndex;
+	private static final long serialVersionUID = 2022035874635305622L;
+	int blockNum, stripeNum, packetIndex;
 
     public DuplicatePacketException(int blockNum, int stripeNum, 
                                     int packetIndex) {

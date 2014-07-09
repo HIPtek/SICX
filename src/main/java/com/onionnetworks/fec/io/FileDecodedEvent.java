@@ -10,7 +10,9 @@ package com.onionnetworks.fec.io;
  */
 public class FileDecodedEvent extends FECIOEvent {
 
-    public FileDecodedEvent(Object source) {
+	private static final long serialVersionUID = 8778435804724696964L;
+
+	public FileDecodedEvent(Object source) {
 	super(source);
     }
 }

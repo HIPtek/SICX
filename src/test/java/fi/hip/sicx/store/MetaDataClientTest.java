@@ -25,8 +25,6 @@ import java.io.IOException;
 import org.joni.test.meta.MetaDataAPI;
 import org.joni.test.meta.MetaFileImpl;
 import org.joni.test.meta.SLA;
-import org.joni.test.meta.UserInfo;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import fi.hip.sicx.sla.SLAManager;

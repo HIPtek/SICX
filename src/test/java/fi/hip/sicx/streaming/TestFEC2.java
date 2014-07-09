@@ -23,14 +23,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
-
-import javax.crypto.NoSuchPaddingException;
 
 import org.junit.Test;
 
@@ -84,7 +79,6 @@ public class TestFEC2 {
         testFileStreamFEC(905);
     }
    
-    
     public void testFileStreamFEC(int size) throws IOException, InterruptedException {
         // k = number of source packets to encode
         // n = number of packets to encode to
@@ -158,6 +152,8 @@ public class TestFEC2 {
         System.out.println("Random file generation : " + (startStriping.getTime() - start.getTime()) + "ms");
         System.out.println("Striping  plain        : " + (startConst.getTime() - startStriping.getTime()) + "ms");
         System.out.println("Reconstruction  plain  : " + (endConst.getTime() - startConst.getTime()) + "ms");
+        startStream.close();
+        endStream.close();
 
         
         for (int i = 0; i < n; i++) {

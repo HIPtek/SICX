@@ -15,6 +15,7 @@ package com.onionnetworks.fec;
  *
  * @author Justin F. Chapweske (justin@chapweske.com)
  */
+@SuppressWarnings("rawtypes")
 public abstract class FECCodeFactory {
 
     protected static FECCodeFactory def;

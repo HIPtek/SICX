@@ -348,7 +348,7 @@ public class Util {
 	int a = 0xFF & addr[0];
 	int b = 0xFF & addr[1];
 	int c = 0xFF & addr[2];
-	int d = 0xFF & addr[3];
+//	int d = 0xFF & addr[3];
 	return ((a == 10)
 		|| (a==192 && b==168)
 		|| (a==192 && b==0 && c==1)
@@ -360,11 +360,12 @@ public class Util {
      * method is more fuzzy and just finds the first one that works.  This
      * class will also prefer public classes/methods.
      */
-    public static final Method getPublicMethod(Class clazz, String name, 
+    @SuppressWarnings("rawtypes")
+	public static final Method getPublicMethod(Class<?> clazz, String name, 
                                                Class[] types) 
         throws NoSuchMethodException {
 
-        Class c = clazz;
+        Class<?> c = clazz;
         while (c != null) {
             if (Modifier.isPublic(c.getModifiers())) {
                 Method m = getMethod(c.getMethods(),name,types);
@@ -394,7 +395,8 @@ public class Util {
     /**
      * @return a public method that matches the signature, null if none match.
      */
-    public static final Method getMethod(Method[] methods, String name,
+    @SuppressWarnings("rawtypes")
+	public static final Method getMethod(Method[] methods, String name,
                                          Class[] types) {
 
         for (int i=0;i<methods.length;i++) {
@@ -422,7 +424,8 @@ public class Util {
     /**
      * Creates an IntIterator from an Iterator containing Integer objects.
      */
-    public static final IntIterator createIntIterator(final Iterator it) {
+    @SuppressWarnings("rawtypes")
+	public static final IntIterator createIntIterator(final Iterator it) {
         return new IntIterator() {
                 public boolean hasNextInt() {
                     return it.hasNext();

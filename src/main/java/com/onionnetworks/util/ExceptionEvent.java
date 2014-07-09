@@ -10,7 +10,8 @@ import java.util.EventObject;
  */
 public class ExceptionEvent extends EventObject {
 
-    Throwable t;
+	private static final long serialVersionUID = -94943463621854476L;
+	Throwable t;
 
     /**
      * @param source The source of the event.  This should probably be

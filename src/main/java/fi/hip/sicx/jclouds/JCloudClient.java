@@ -143,7 +143,8 @@ public class JCloudClient implements StorageClient {
      * 
      * @return true if success, otherwise false
      */
-    public boolean connect() {
+    @SuppressWarnings("deprecation")
+	public boolean connect() {
         // Init
         properties = new Properties();
 

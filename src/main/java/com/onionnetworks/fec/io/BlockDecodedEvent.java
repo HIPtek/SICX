@@ -10,7 +10,8 @@ package com.onionnetworks.fec.io;
  */
 public class BlockDecodedEvent extends FECIOEvent {
 
-    int blockNum;
+	private static final long serialVersionUID = 4653611243542145693L;
+	int blockNum;
 
     public BlockDecodedEvent(Object source, int blockNum) {
 	super(source);

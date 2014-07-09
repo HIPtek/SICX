@@ -193,7 +193,7 @@ public class Gui {
         JLabel lblCipher = new JLabel("Cipher");
         selectCipherPanel.add(lblCipher);
 
-        final JComboBox selectCipherComboBox = new JComboBox();
+        final JComboBox<String> selectCipherComboBox = new JComboBox<String>();
         selectCipherComboBox.addItem("Blowfish 128bits");
         selectCipherComboBox.addItem("AES 256bits");
         selectCipherPanel.add(selectCipherComboBox);

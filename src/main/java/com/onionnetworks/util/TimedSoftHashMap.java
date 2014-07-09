@@ -5,7 +5,9 @@ import java.lang.ref.*;
 
 public class TimedSoftHashMap extends HashMap {
 
-    public static final int DEFAULT_TTL = 2*60*1000;
+ 	private static final long serialVersionUID = -1245369610888600332L;
+
+	public static final int DEFAULT_TTL = 2*60*1000;
 
     TreeSet timings = new TreeSet();
 

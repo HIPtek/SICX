@@ -16,13 +16,9 @@
 
 package fi.hip.sicx.store;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -50,7 +46,6 @@ import com.eaio.uuid.UUID;
 import fi.hip.sicx.sla.SLAManager;
 import fi.hip.sicx.store.StorageClientObserver.StorageClientState;
 import fi.hip.sicx.streaming.StreamingFEC;
-import fi.hip.sicx.vaadin.LocalProperties;
 
 /**
  * MetaDataClient class.
@@ -130,7 +125,7 @@ public class MetaDataClient {
 		MetaFile mf = target;
 		long stripePaddingSize = 0;
 		long newfile_length = 0;
-		ArrayList<StripeLocation> stripes = new ArrayList();
+		ArrayList<StripeLocation> stripes = new ArrayList<StripeLocation>();
 		List<StorageClient> jcc = null;
 		OutputStream outStreams[] = null;
 		InputStream inS = null;

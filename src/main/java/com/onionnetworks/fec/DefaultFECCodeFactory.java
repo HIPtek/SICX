@@ -1,11 +1,10 @@
 package com.onionnetworks.fec;
 
 import java.util.*;
-import java.io.IOException;
 import java.io.*;
 import java.lang.reflect.*;
+
 import com.onionnetworks.util.Tuple;
-import com.onionnetworks.util.TimedSoftHashMap;
 
 /**
  * This is the default FECCodeFactory that wraps all of the FECCode 
@@ -26,6 +25,7 @@ import com.onionnetworks.util.TimedSoftHashMap;
  *
  * @author Justin F. Chapweske (justin@chapweske.com)
  */
+@SuppressWarnings("rawtypes")
 public class DefaultFECCodeFactory extends FECCodeFactory {
 
     public static final int DEFAULT_CACHE_TIME = 2*60*1000;

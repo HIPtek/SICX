@@ -120,6 +120,8 @@ public class HydraCryptTest {
 			if (originalchar != reconstructchar)
 				errors++;
 		}
+		originalSecret.close();
+		reconstructedSecret.close();
 		assertEquals("Reconstruct should be identical to original", errors, 0);
 		
 		// delete the tempfiles

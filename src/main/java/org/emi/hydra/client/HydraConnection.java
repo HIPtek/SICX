@@ -196,7 +196,7 @@ public class HydraConnection {
         Map<Integer, BigInteger> keySlices = key.splitKey(number_of_connections, reconstruction_threshold);
         String entryname = getEntryName(filename, userid);
         ACLItem aclItem = new ACLItem(userid, true, true);
-        List<ACLItem> acl = new ArrayList();
+        List<ACLItem> acl = new ArrayList<ACLItem>();
         acl.add(aclItem);
         BigInteger iv = null;
         if (key.getInitializationVector() != null) {

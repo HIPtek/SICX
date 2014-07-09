@@ -45,6 +45,7 @@ import java.net.URL;
  * @author Justin F. Chapweske
  *
  */
+@SuppressWarnings("rawtypes")
 public class NativeDeployer {
 
 
@@ -122,7 +123,7 @@ public class NativeDeployer {
     /**
      * @return A HashMap mapping library names to paths for this os/arch.
      */
-    private final static HashMap findLibraries(ClassLoader cl)
+	private final static HashMap findLibraries(ClassLoader cl)
         throws IOException {
 	
         HashMap libMap = new HashMap();

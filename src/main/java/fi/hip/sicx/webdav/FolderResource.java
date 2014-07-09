@@ -44,8 +44,6 @@ import com.bradmcevoy.http.Resource;
 import com.bradmcevoy.http.exceptions.BadRequestException;
 import com.bradmcevoy.http.exceptions.ConflictException;
 import com.bradmcevoy.http.exceptions.NotAuthorizedException;
-import com.eaio.uuid.UUID;
-
 import fi.hip.sicx.store.MetaDataClient;
 import fi.hip.sicx.store.MetaHandler;
 import fi.hip.sicx.sla.SLAManager;
@@ -461,10 +459,6 @@ public class FolderResource implements PropFindableResource, CollectionResource,
 		
 		// Check and get directory where moved
 		FolderResource fr = (FolderResource) rDest;
-		if(fr == null) {
-			System.err.println("Move failed, destination folder not found.");
-			throw new BadRequestException("Move failed, destination folder not found.");
-		}
 		MetaFile targetfolder = fr.getMetaFile();
 		if(targetfolder == null) {
 			System.err.println("Move failed, destination folder MetaFile not found.");

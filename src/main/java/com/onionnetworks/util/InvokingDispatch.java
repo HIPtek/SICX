@@ -32,17 +32,19 @@ public class InvokingDispatch extends ReflectiveEventDispatch implements
 	}
     }
 
-    public class InvokeEvent extends EventObject {
-	Runnable r;
-	public InvokeEvent(Object source, Runnable r) {
-	    super(source);
-	    this.r = r;
+	public class InvokeEvent extends EventObject {
+		private static final long serialVersionUID = -4948110635161051461L;
+		Runnable r;
+
+		public InvokeEvent(Object source, Runnable r) {
+			super(source);
+			this.r = r;
+		}
+
+		public Runnable getRunnable() {
+			return r;
+		}
 	}
-	
-	public Runnable getRunnable() {
-	    return r;
-	}
-    }
 }
 
 

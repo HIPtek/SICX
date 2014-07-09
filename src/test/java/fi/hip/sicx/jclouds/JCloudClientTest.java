@@ -81,7 +81,6 @@ public class JCloudClientTest
 	assertFalse(exception);
 	
 	// Check if file exists (it should not) 
-	@SuppressWarnings("null")
 	String infile = inputFile.getName();
 	if(jcc.checkFile(infile, this)) {
 		System.out.printf("1File " + infile + " exists.\n");

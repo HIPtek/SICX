@@ -70,7 +70,7 @@ public class HIPStoreClient
         LocalProperties props = LocalProperties.getInstance();
         URL url = new URL(props.getProperty("hipstore.url", "https://localhost:7443/remotestore") + path);
         HttpURLConnection uc = (HttpURLConnection)url.openConnection();
-        uc.setFollowRedirects(true);
+        HttpURLConnection.setFollowRedirects(true);
     
         if (uc instanceof HttpsURLConnection) {
             HttpsURLConnection conn = (HttpsURLConnection)uc;
@@ -222,11 +222,11 @@ public class HIPStoreClient
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(bos, "UTF-8"));
 
-            Hashtable<String, String> params = new Hashtable();
+            Hashtable<String, String> params = new Hashtable<String, String>();
             params.put("permissions", "");
             params.put("path", fileInTheCloud); // this could be set in the filename
 
-            for (Enumeration e = params.keys(); e.hasMoreElements();) {
+            for (Enumeration<String> e = params.keys(); e.hasMoreElements();) {
                 String k = (String)e.nextElement();
                 String v = params.get(k);
                 writer.print("--" + boundary + crlf);

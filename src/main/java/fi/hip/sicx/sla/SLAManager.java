@@ -58,7 +58,7 @@ public class SLAManager {
 
     }
 
-    private ArrayList<StorageClient> clients = new ArrayList();
+    private ArrayList<StorageClient> clients = new ArrayList<StorageClient>();
 
     private Vector<String> webdavConnections = null;
     private int webdavConnectionsRoundRobinCounter = 0;
@@ -110,7 +110,7 @@ public class SLAManager {
          */
 
         // todo: populate the list with as many entries as the sla dictates..
-        ArrayList<StorageClient> list = new ArrayList();
+        ArrayList<StorageClient> list = new ArrayList<StorageClient>();
         StorageClient ret = null;
         //int num = 3; // require num connections
 

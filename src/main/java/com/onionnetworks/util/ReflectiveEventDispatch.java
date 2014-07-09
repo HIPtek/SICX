@@ -11,9 +11,9 @@ public class ReflectiveEventDispatch implements Runnable {
     public static final int DEFAULT_WARNING_TIME = 10;
 
     private Thread t;
-    private HashMap methodCache = new HashMap();
-    private HashMap listeners = new HashMap();
-    private LinkedList eventQueue = new LinkedList();
+    private HashMap<Tuple, Method> methodCache = new HashMap<Tuple, Method>();
+    private HashMap<Object, HashMap<String, HashSet<EventListener>>> listeners = new HashMap<Object, HashMap<String, HashSet<EventListener>>>();
+    private LinkedList<Object> eventQueue = new LinkedList<Object>();
     private ExceptionHandler handler;
 
     public ReflectiveEventDispatch() {
@@ -37,16 +37,16 @@ public class ReflectiveEventDispatch implements Runnable {
 
     public synchronized void addListener(Object source, EventListener el, 
                                          String[] methodNames) {
-	HashMap hm = (HashMap) listeners.get(source);
+	HashMap<String, HashSet<EventListener>> hm = (HashMap<String, HashSet<EventListener>>) listeners.get(source);
 	if (hm == null) {
-	    hm = new HashMap();
+	    hm = new HashMap<String, HashSet<EventListener>>();
 	    listeners.put(source, hm);
 	}
 
         for (int i=0;i<methodNames.length;i++) {
-            HashSet set = (HashSet) hm.get(methodNames[i]);
+            HashSet<EventListener> set = (HashSet<EventListener>) hm.get(methodNames[i]);
             if (set == null) {
-                set = new HashSet();
+                set = new HashSet<EventListener>();
                 hm.put(methodNames[i],set);
             }
             set.add(el);
@@ -60,12 +60,12 @@ public class ReflectiveEventDispatch implements Runnable {
 
     public synchronized void removeListener(Object source, EventListener el, 
                                             String[] methodNames) {
-	HashMap hm = (HashMap) listeners.get(source);
+	HashMap<?, ?> hm = (HashMap<?, ?>) listeners.get(source);
 	if (hm == null) {
 	    throw new IllegalArgumentException("Listener not registered.");
 	}
         for (int i=0;i<methodNames.length;i++) {
-            HashSet set = (HashSet) hm.get(methodNames[i]);
+            HashSet<?> set = (HashSet<?>) hm.get(methodNames[i]);
             if (set == null || !set.contains(el)) {
                 throw new IllegalArgumentException("Listener not registered.");
             }
@@ -91,7 +91,7 @@ public class ReflectiveEventDispatch implements Runnable {
         while (!done) {
             EventObject ev = null;
             String methodName = null;
-            HashSet set = null;
+            HashSet<?> set = null;
             synchronized (this) {
                 if (eventQueue.isEmpty()) {
                     try {
@@ -110,32 +110,32 @@ public class ReflectiveEventDispatch implements Runnable {
 		Tuple t = (Tuple) obj;
                 ev = (EventObject) t.getLeft();
                 methodName = (String) t.getRight();
-		HashMap hm = (HashMap) listeners.get(ev.getSource());
+		HashMap<?, ?> hm = (HashMap<?, ?>) listeners.get(ev.getSource());
 		if (hm == null) {
 		    continue;
 		}
-		set = (HashSet) hm.get(methodName);
+		set = (HashSet<?>) hm.get(methodName);
                 if (set == null) {
                     continue;
                 }
                 // Make a copy incase its modified while we're doing the shit.
-                set = (HashSet) set.clone();
+                set = (HashSet<?>) set.clone();
             }
 
-            for (Iterator it=set.iterator();it.hasNext();) {
+            for (Iterator<?> it=set.iterator();it.hasNext();) {
                 EventListener el = (EventListener) it.next();
                 // Get the method and invoke it, passing the event.
                 //long t1 = System.currentTimeMillis();
                 try {
-		    final Class elc = el.getClass();
-		    final Class evc = ev.getClass();
+		    final Class<? extends EventListener> elc = el.getClass();
+		    final Class<? extends EventObject> evc = ev.getClass();
 		   
 		    // Cache the method because getPublicMethod is very
 		    // expensive to invoke.
 		    Tuple cacheKey = new Tuple(elc,new Tuple(methodName,evc));
 		    Method m = (Method) methodCache.get(cacheKey);
 		    if (m == null) {
-			final Class ca[] = new Class[] { evc };
+			final Class<?> ca[] = new Class[] { evc };
 			// This version of getMethod supports subclasses as
 			// parameter types.
 			m = Util.getPublicMethod(elc,methodName,ca);

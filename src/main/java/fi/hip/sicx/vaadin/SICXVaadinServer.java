@@ -16,18 +16,9 @@
 
 package fi.hip.sicx.vaadin;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-
-import org.eclipse.jetty.util.ssl.SslContextFactory;
-import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.ssl.SslSelectChannelConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
@@ -70,7 +61,7 @@ public class SICXVaadinServer {
         _server.setHandler(context);
         
         ServletHolder holder = new ServletHolder(new ApplicationServlet());
-        Map<String, String> map = new HashMap<String, String> ();
+//        Map<String, String> map = new HashMap<String, String> ();
         holder.setInitParameter("application", "fi.hip.sicx.vaadin.FileguiApplication");
         context.addServlet(holder, "/*");
 

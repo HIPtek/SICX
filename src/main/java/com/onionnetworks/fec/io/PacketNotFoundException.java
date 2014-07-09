@@ -13,7 +13,8 @@ import java.io.IOException;
  */
 public class PacketNotFoundException extends IOException {
     
-    int blockNum, stripeNum;
+	private static final long serialVersionUID = 7941733093786340147L;
+	int blockNum, stripeNum;
 
     public PacketNotFoundException(int blockNum, int stripeNum) {
         super();

@@ -11,7 +11,9 @@ import java.util.*;
  * @author Justin F. Chapweske (justin@chapweske.com)
  */
 public class FECIOEvent extends EventObject {
-    public FECIOEvent(Object source) {
+	private static final long serialVersionUID = 965815774640363803L;
+
+	public FECIOEvent(Object source) {
 	super(source);
     }
 }

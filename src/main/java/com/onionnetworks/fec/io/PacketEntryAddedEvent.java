@@ -10,7 +10,8 @@ package com.onionnetworks.fec.io;
  */
 public class PacketEntryAddedEvent extends FECIOEvent {
 
-    int packetIndex;
+	private static final long serialVersionUID = -8492019044782919475L;
+	int packetIndex;
 
     public PacketEntryAddedEvent(Object source, int packetIndex) {
 	super(source);

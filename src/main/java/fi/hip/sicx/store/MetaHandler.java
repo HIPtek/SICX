@@ -144,7 +144,7 @@ public class MetaHandler {
                 root.setDirectory(true);
                 root.setName(rootName);
                 root.addACLItem(new ACLItem(userName, true, true));
-                List<UUID> roots = new ArrayList();
+                List<UUID> roots = new ArrayList<UUID>();
                 roots.add(root.getId());
                 info.setRoots(roots);
             }

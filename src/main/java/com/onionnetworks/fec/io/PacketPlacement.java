@@ -169,11 +169,11 @@ public class PacketPlacement {
         short blockPacketCount = (short) getPacketCount(blockNum);
         int packetIndex = -1;
 
-	ArrayList blockEntries = entries[blockNum];
+	ArrayList<Integer> blockEntries = entries[blockNum];
   
 	// first packet for this block.
 	if (blockEntries == null) { 
-	    blockEntries = new ArrayList();
+	    blockEntries = new ArrayList<Integer>();
 	    entries[blockNum] = blockEntries;
 	}
 	

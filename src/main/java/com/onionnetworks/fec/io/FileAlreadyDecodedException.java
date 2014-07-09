@@ -13,7 +13,9 @@ import java.io.IOException;
  */
 public class FileAlreadyDecodedException extends IOException {
     
-    public FileAlreadyDecodedException() {
+	private static final long serialVersionUID = -3805663956767530898L;
+
+	public FileAlreadyDecodedException() {
         super();
     }
 

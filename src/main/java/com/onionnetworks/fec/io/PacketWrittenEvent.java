@@ -1,7 +1,5 @@
 package com.onionnetworks.fec.io;
 
-import java.util.*;
-
 /**
  * This event signifies that a new packet was recieved and written to disk.
  *
@@ -12,7 +10,8 @@ import java.util.*;
  */
 public class PacketWrittenEvent extends FECIOEvent {
 
-    int blockNum,stripeNum,blockPacketCount;
+	private static final long serialVersionUID = -2788911248147331477L;
+	int blockNum,stripeNum,blockPacketCount;
 
     public PacketWrittenEvent(Object source, int blockNum, int stripeNum,
                               int blockPacketCount) {

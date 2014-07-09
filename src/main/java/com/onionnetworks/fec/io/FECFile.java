@@ -8,11 +8,11 @@ import java.security.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 import com.onionnetworks.fec.FECCode;
 import com.onionnetworks.fec.FECCodeFactory;
 import com.onionnetworks.io.RAF;
 import com.onionnetworks.util.*;
+
 import EDU.oswego.cs.dl.util.concurrent.*;
 
 /**
@@ -67,6 +67,7 @@ import EDU.oswego.cs.dl.util.concurrent.*;
  *
  * @author Justin F. Chapweske (justin@chapweske.com)
  */
+@SuppressWarnings("unused")
 public class FECFile {
 
    //static Category cat = Category.getInstance(FECFile.class);
@@ -75,7 +76,7 @@ public class FECFile {
 
     private RAF raf; // synched RandomAccessFile
     private PacketPlacement pp;
-    private FileIntegrity integrity;
+	private FileIntegrity integrity;
     private MessageDigest md;
 
     private FECCode code;
@@ -654,7 +655,7 @@ public class FECFile {
 
     public class Decoder implements Runnable, FECIOListener {
 	
-	LinkedList queue = new LinkedList();
+	LinkedList<FECIOEvent> queue = new LinkedList<FECIOEvent>();
 	boolean done = false;
 
 	public void notify(FECIOEvent ev) {

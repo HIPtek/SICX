@@ -20,9 +20,6 @@ import org.eclipse.jetty.server.handler.AbstractHandler;
 
 import com.bradmcevoy.http.Response;
 import com.bradmcevoy.http.AuthenticationService;
-import com.bradmcevoy.http.ResourceFactory;
-import com.bradmcevoy.http.ResourceFactoryFactory;
-import com.bradmcevoy.http.Response;
 import com.bradmcevoy.http.ServletHttpManager;
 import com.bradmcevoy.http.webdav.DefaultWebDavResponseHandler;
 import com.bradmcevoy.http.webdav.WebDavResponseHandler;

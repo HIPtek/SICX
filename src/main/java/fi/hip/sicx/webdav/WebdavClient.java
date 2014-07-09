@@ -51,11 +51,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.input.CountingInputStream;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-
-import org.junit.Test;
 
 /**
  * WebdavClient class.
@@ -65,7 +60,7 @@ import org.junit.Test;
 public class WebdavClient implements StorageClient{
 
 	public Host host = null;
-	private Future future = null;
+	private Future<?> future = null;
 	
 	private String address = null;
 	private int port = 80;

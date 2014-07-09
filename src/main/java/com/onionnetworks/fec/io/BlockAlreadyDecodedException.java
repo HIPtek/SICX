@@ -13,7 +13,8 @@ import java.io.IOException;
  */
 public class BlockAlreadyDecodedException extends IOException {
     
-    int blockNum, stripeNum;
+	private static final long serialVersionUID = 7879495550897060714L;
+	int blockNum, stripeNum;
 
     /**
      * Constructs a new Exception

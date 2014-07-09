@@ -417,7 +417,6 @@ public class FECMath {
         int[] ipiv = new int[k];
 
         char[] id_row = createGFMatrix(1, k);
-        char[] temp_row = createGFMatrix(1, k);
         
         for (int col = 0; col < k ; col++) {
             /*
