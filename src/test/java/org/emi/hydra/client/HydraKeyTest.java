@@ -66,7 +66,7 @@ public class HydraKeyTest {
 	public void testHydraKey() {
 		byte[] keyArray = {21, -79, -108, -50, 12, -6, -123, 10, -53, 84, 42, -41, -22, 33, 11, -76};
 		HydraKey hk = new HydraKey(keyArray, "Testalgo");
-		BigInteger[] defaults = {null, BigInteger.valueOf(3), BigInteger.valueOf(2)};
+//		BigInteger[] defaults = {null, BigInteger.valueOf(3), BigInteger.valueOf(2)};
 		assertEquals("the stored key should match with the original", new BigInteger(keyArray), new BigInteger(hk.getEncoded()));
 	}
 	/**

@@ -45,7 +45,7 @@ import fi.hip.sicx.store.MetaHandler;
  */
 public class FileResource implements com.bradmcevoy.http.FileResource {
 
-        private static final int BUFF_SIZE = 419600;
+//        private static final int BUFF_SIZE = 419600;
         private String frname = "";
         MetaDataAPI meta;
         SLAManager man;

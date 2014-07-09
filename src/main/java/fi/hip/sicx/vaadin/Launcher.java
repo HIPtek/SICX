@@ -47,21 +47,21 @@ import fi.hip.sicx.webdav.WebdavHandler;
 public class Launcher {
  
     /** run under root context */
-    private static String contextPath = "/";
+//    private static String contextPath = "/";
     /** location where resources should be provided from for VAADIN resources */
-    private static String resourceBase = "/"; 
+//    private static String resourceBase = "/"; 
     /** port to listen on */
     private static int httpPort = 8081;
  
-    private static String[] __dftConfigurationClasses =
-    {
-        "org.eclipse.jetty.webapp.WebInfConfiguration",
-        "org.eclipse.jetty.webapp.WebXmlConfiguration",
-        "org.eclipse.jetty.webapp.MetaInfConfiguration", 
-        "org.eclipse.jetty.webapp.FragmentConfiguration",        
-        "org.eclipse.jetty.plus.webapp.EnvConfiguration",
-        "org.eclipse.jetty.webapp.JettyWebXmlConfiguration"
-    } ;
+//    private static String[] __dftConfigurationClasses =
+//    {
+//        "org.eclipse.jetty.webapp.WebInfConfiguration",
+//        "org.eclipse.jetty.webapp.WebXmlConfiguration",
+//        "org.eclipse.jetty.webapp.MetaInfConfiguration", 
+//        "org.eclipse.jetty.webapp.FragmentConfiguration",        
+//        "org.eclipse.jetty.plus.webapp.EnvConfiguration",
+//        "org.eclipse.jetty.webapp.JettyWebXmlConfiguration"
+//    } ;
  
     /**
      * Start the server, and keep waiting.

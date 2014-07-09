@@ -16,7 +16,7 @@
 package fi.hip.sicx.testing;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+//import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -39,7 +39,9 @@ import chrriis.dj.nativeswing.swtimpl.components.JWebBrowser;
  */
 public class JWebBrowserTest extends JPanel {
 
-	  public JWebBrowserTest() {
+	private static final long serialVersionUID = -4904264804447915340L;
+
+	public JWebBrowserTest() {
 	    super(new BorderLayout());
 	    JPanel webBrowserPanel = new JPanel(new BorderLayout());
 	    webBrowserPanel.setBorder(BorderFactory.createTitledBorder("SICX Client"));
@@ -50,7 +52,7 @@ public class JWebBrowserTest extends JPanel {
 	    webBrowserPanel.add(webBrowser, BorderLayout.CENTER);
 	    add(webBrowserPanel, BorderLayout.CENTER);
 	    // Create an additional bar allowing to show/hide the menu bar of the web browser.
-	    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 4));
+//	    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 4));
 	    JCheckBox menuBarCheckBox = new JCheckBox("Menu Bar", webBrowser.isMenuBarVisible());
 	    menuBarCheckBox.addItemListener(new ItemListener() {
 	      public void itemStateChanged(ItemEvent e) {

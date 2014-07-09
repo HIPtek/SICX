@@ -3,8 +3,8 @@ package com.onionnetworks.fec.io;
 
 import java.util.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+//import org.apache.commons.logging.Log;
+//import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -17,11 +17,12 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Justin F. Chapweske (justin@chapweske.com)
  */
+@SuppressWarnings("rawtypes")
 public class PacketPlacement {
 
     public static final short DECODED_BLOCK = -1;
 
-    private static Log cat = LogFactory.getLog(PacketPlacement.class);
+//    private static Log cat = LogFactory.getLog(PacketPlacement.class);
    
     FECParameters params;
 
@@ -32,7 +33,7 @@ public class PacketPlacement {
     short[] packetCount;
 
     // List of all packets for each block in order written.
-    ArrayList[] entries;
+	ArrayList[] entries;
 
     // Maps block/stripe to packetIndexes.
     HashMap[] revEntries;
@@ -150,7 +151,8 @@ public class PacketPlacement {
      *   packet a second time.
      * @throws BlockFullException When the desired block is already full.
      */
-    public synchronized int addPacketEntry(int blockNum, int stripeNum) {
+    @SuppressWarnings("unchecked")
+	public synchronized int addPacketEntry(int blockNum, int stripeNum) {
 
         // block already decoded
         if (isBlockDecoded(blockNum)) {

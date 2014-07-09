@@ -71,8 +71,7 @@ public class LocalProperties extends Properties {
     public synchronized Object setProperty(String key,
                               String value) {
         
-        Thread current = Thread.currentThread();
-        current.dumpStack();
+        Thread.dumpStack();
         
         Object ret = super.setProperty(key, value);
         

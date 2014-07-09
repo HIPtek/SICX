@@ -115,8 +115,8 @@ public class MetaDataClient {
 		//   .. crypt, stripe
 		//   upload to the selected storages
 		//   report update status
-		int min_stripes = k;
-		int max_stripes = n;
+//		int min_stripes = k;
+//		int max_stripes = n;
 		int packetSize = 10240;
 		int keyLength = 128;
 		String algorithm = "AES";

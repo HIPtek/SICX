@@ -16,11 +16,9 @@
 package fi.hip.sicx.webdav;
 
 import static org.junit.Assert.assertTrue;
-
 import fi.hip.sicx.store.StorageClient;
 import fi.hip.sicx.store.StorageIOException;
 import fi.hip.sicx.store.StorageClientObserver;
-
 import io.milton.http.exceptions.BadRequestException;
 import io.milton.http.exceptions.ConflictException;
 import io.milton.http.exceptions.NotAuthorizedException;
@@ -178,6 +176,7 @@ public class WebdavClient implements StorageClient{
 		return retme;
 	}
 
+	@SuppressWarnings("unused")
 	private boolean tryConnect() {
 		// Connect
 		this.host = new Host(this.address, null, this.port, this.username, 
@@ -297,6 +296,7 @@ public class WebdavClient implements StorageClient{
 	 * @return Resource to the uploaded file
 	 * @deprecated replaced by {@link #writeDataWaitToComplete(int)}
 	 */
+	@SuppressWarnings("unused")
 	@Deprecated
 	private Resource waitWriteDataToFinish(int time_in_seconds) {
 		try {
@@ -647,6 +647,7 @@ public class WebdavClient implements StorageClient{
 	//////////////////////////////////////////////////////////
 	
 	//@Test
+	@SuppressWarnings("unused")
 	private void testCreateDir() throws Exception {
 		boolean exception = false;
 
@@ -817,6 +818,7 @@ public class WebdavClient implements StorageClient{
 	}
 	
 	//@Test
+	@SuppressWarnings("unused")
 	private void testUploadFile() throws Exception {
 		boolean exception = false;
 

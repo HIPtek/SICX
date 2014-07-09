@@ -4,7 +4,7 @@ import java.util.*;
 import java.io.*;
 import java.lang.reflect.*;
 
-import com.onionnetworks.util.Tuple;
+//import com.onionnetworks.util.Tuple;
 
 /**
  * This is the default FECCodeFactory that wraps all of the FECCode 
@@ -31,8 +31,8 @@ public class DefaultFECCodeFactory extends FECCodeFactory {
     public static final int DEFAULT_CACHE_TIME = 2*60*1000;
 
     //protected TimedSoftHashMap codeCache = new HashMap();
-    protected ArrayList eightBitCodes = new ArrayList();
-    protected ArrayList sixteenBitCodes = new ArrayList();
+    protected ArrayList<Constructor<?>> eightBitCodes = new ArrayList<Constructor<?>>();
+    protected ArrayList<Constructor<?>> sixteenBitCodes = new ArrayList<Constructor<?>>();
     protected Properties fecProperties;
 
     public DefaultFECCodeFactory() {
@@ -93,7 +93,7 @@ public class DefaultFECCodeFactory extends FECCodeFactory {
     public synchronized FECCode createFECCode(int k, int n) {
         Integer K = new Integer(k);
         Integer N = new Integer(n);
-        Tuple t = new Tuple(K,N);
+//        Tuple t = new Tuple(K,N);
 
         // See if there is a cached code.
         FECCode result = null; //(FECCode) codeCache.get(t);

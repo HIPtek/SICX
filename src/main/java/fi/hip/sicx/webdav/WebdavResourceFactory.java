@@ -100,7 +100,8 @@ public class WebdavResourceFactory implements ResourceFactory {
     	return rets; 
     }
     
-    private Resource find(Path path) {
+    @SuppressWarnings("unused")
+	private Resource find(Path path) {
         if (path.isRoot()) {
         	System.out.println("ROOT");
             return ROOT;

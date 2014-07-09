@@ -65,7 +65,7 @@ public class Gui {
      * @wbp.nonvisual location=11,365
      */
 
-    private String log = "JHydra Client 0.1";
+//    private String log = "JHydra Client 0.1";
     private JTextField settingsXmlField;
     private JTextField serverCertificateField;
     private JTextField clientCertificateField;

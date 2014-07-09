@@ -60,7 +60,7 @@ import com.vaadin.ui.Embedded;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.ProgressIndicator;
+//import com.vaadin.ui.ProgressIndicator;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.TableDragMode;
 import com.vaadin.ui.Table.TableTransferable;
@@ -940,13 +940,13 @@ public class GUIComponent
                     }
                 }
                 
-                Double rand = new Double(Math.random() * 100);
-                String sumFieldText;
-                if (rand < 50) {
-                    sumFieldText = "<font color=\"red\">" + String.format("%.0f", rand * 1.9) + "%</font>";
-                } else {
-                    sumFieldText = "<font color=\"green\">100%</font>";
-                }
+//                Double rand = new Double(Math.random() * 100);
+//                String sumFieldText;
+//                if (rand < 50) {
+//                    sumFieldText = "<font color=\"red\">" + String.format("%.0f", rand * 1.9) + "%</font>";
+//                } else {
+//                    sumFieldText = "<font color=\"green\">100%</font>";
+//                }
                 
                 // jk: here we should create a meta entry, some sort of 'in progress' flag and use the 
                 // normal refresh to update the list! Or not, as that would be heavy. Instead, create some sort
@@ -959,7 +959,7 @@ public class GUIComponent
                 	sicx_uploader[tid] = new SICXUploader((GUIComponent)component, 
                                                               "upload", currentRemoteRoot, file, sla, 
                                                               null);
-                        Label sumField = new Label(sumFieldText, Label.CONTENT_XHTML);
+//                        Label sumField = new Label(sumFieldText, Label.CONTENT_XHTML);
                         // todo: refresh
                         servert.addItem(new Object[] { file.getName(), file.length(), sla.getSLA(), "Uploading.." }, sicx_uploader[tid].getTargetFile());
                         sicx_uploader[tid].start();
@@ -1310,7 +1310,7 @@ public class GUIComponent
     
     private static int MAX_NUMBER_OF_CONCURRENT_UPLOADS = 10;
     private SICXUploader[] sicx_uploader;
-    private ProgressIndicator pi1;
+//    private ProgressIndicator pi1;
     final Refresher refresher;
 
     private String getUploadProgressString(SICXUploader.UploaderState state, int progress, String operation, int availability) {
