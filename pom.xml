@@ -330,7 +330,7 @@
 
 						<!-- KEYSTORE MANAGEMENT -->
 						<keystoreConfig>
-							<!--<delete>true</delete>  delete the keystore -->
+							<delete>true</delete>  <!-- delete the keystore -->
 							<gen>true</gen>       <!-- optional shortcut to generate the store. -->
 						</keystoreConfig>
 
@@ -342,7 +342,7 @@
 					<jnlp>
 						<!-- default values -->
 						<!--inputTemplateResourcePath>${project.basedir}</inputTemplateResourcePath -->
-						<inputTemplate>src/main/jnlp/template.vm</inputTemplate> <!-- relative to inputTemplateResourcePath -->
+						<inputTemplate>template.vm</inputTemplate> <!-- relative to inputTemplateResourcePath -->
 						<outputFile>sicx.jnlp</outputFile> <!-- defaults to launch.jnlp -->
 
 						<!-- used to automatically identify the jar containing the main class. -->
@@ -352,7 +352,7 @@
 
 					<!-- BUILDING PROCESS -->
 
-					<pack200>false</pack200>
+<!--  					<pack200>false</pack200>-->
 					<gzip>false</gzip> <!-- default force when pack200 false, true when pack200 selected ?? -->
 
 					<!-- causes a version attribute to be output in each jar resource element, 
