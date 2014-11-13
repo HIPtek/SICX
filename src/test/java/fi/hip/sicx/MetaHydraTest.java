@@ -2,9 +2,11 @@ package fi.hip.sicx;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Proxy;
 import java.security.GeneralSecurityException;
 
 import org.bouncycastle.crypto.CryptoException;
+import org.hydra.HydraAPI;
 import org.hydra.server.HydraServer;
 import org.joni.test.meta.MetaDataAPI;
 import org.joni.test.meta.server.MetaServer;
@@ -15,11 +17,14 @@ import org.junit.Test;
 import fi.hip.sicx.srp.HandshakeException;
 import fi.hip.sicx.srp.SRPAPI;
 import fi.hip.sicx.srp.SRPClient;
+import fi.hip.sicx.srp.SessionKey;
+import fi.hip.sicx.srp.SessionToken;
+import fi.hip.sicx.srp.hessian.HessianSRPProxy;
 import fi.hip.sicx.srp.hessian.HessianSRPProxyFactory;
 
 public class MetaHydraTest {
 
-    public static final String TRUSTED_CLIENT_CONFIG_FILE = "src/test/client.conf";
+    private static final String TRUSTED_CLIENT_CONFIG_FILE = "src/test/client.conf";
     private static final String HYDRA1_PURGE_CONFIG_FILE = "src/test/hydra1-purge.conf";
     private static final String HYDRA2_PURGE_CONFIG_FILE = "src/test/hydra2-purge.conf";
     private static final String HYDRA3_PURGE_CONFIG_FILE = "src/test/hydra3-purge.conf";
@@ -28,6 +33,13 @@ public class MetaHydraTest {
     private HydraServer hydra2;
     private HydraServer hydra3;
     private MetaServer metaServer;
+    private static final String hydra1Url = "https://localhost:8991/";
+    private static final String hydra2Url = "https://localhost:8992/";
+    private static final String hydra3Url = "https://localhost:8993/";
+    private static final String metaUrl = "https://localhost:40666/";
+    
+    private static final String username = "TEstUser";
+    private static final String password = "PassWordd";
 
     @Before
     public void setupServers() throws Exception {
@@ -47,22 +59,36 @@ public class MetaHydraTest {
         metaServer.start();
 
     }
-    
-    public void addUserSRP(String username, String passwordString, boolean addUser, String url){
-    // client
-//    HessianSRPProxyFactory factory = HessianSRPProxyFactory.getFactory(TRUSTED_CLIENT_CONFIG_FILE);
-//    String srpUrl = "https://localhost:40666/SRPService";
-//    SRPAPI srpService = (SRPAPI) factory.create(SRPAPI.class, srpUrl);
-//
-//    SRPClient.putVerifier(srpService, username, passwordString);
+
+    public void addUserSRP(String username, String passwordString) throws FileNotFoundException, IOException,
+            GeneralSecurityException {
+        // client
+        HessianSRPProxyFactory factory = HessianSRPProxyFactory.getFactory(TRUSTED_CLIENT_CONFIG_FILE);
+        SRPAPI hydra1SrpService = (SRPAPI) factory.create(SRPAPI.class, hydra1Url + "SRPService");
+        SRPClient.putVerifier(hydra1SrpService, username, passwordString);
+        SRPAPI hydra2SrpService = (SRPAPI) factory.create(SRPAPI.class, hydra2Url + "SRPService");
+        SRPClient.putVerifier(hydra2SrpService, username, passwordString);
+        SRPAPI hydra3SrpService = (SRPAPI) factory.create(SRPAPI.class, hydra3Url + "SRPService");
+        SRPClient.putVerifier(hydra3SrpService, username, passwordString);
+        SRPAPI metaSrpService = (SRPAPI) factory.create(SRPAPI.class, metaUrl + "SRPService");
+        SRPClient.putVerifier(metaSrpService, username, passwordString);
 
     }
-    
+
     @Test
     public void testFilePut() throws Exception {
+        addUserSRP(username, password);
+        
+        HessianSRPProxyFactory factory = HessianSRPProxyFactory.getFactory(TRUSTED_CLIENT_CONFIG_FILE);
+        SRPAPI hydra1SrpService = (SRPAPI) factory.create(SRPAPI.class, hydra1Url + "SRPService");
+        SessionKey hydra1Session = SRPClient.login(hydra1SrpService, username, password);
+        
+        HydraAPI service = (HydraAPI) factory.create(HydraAPI.class, hydra1Url + "HydraService");
+        HessianSRPProxy proxy = (HessianSRPProxy) Proxy.getInvocationHandler(service);
+        proxy.setSession(new SessionToken(username, hydra1Session.getK()).toString());
         
     }
-    
+
     @After
     public void stopServers() throws Exception {
         System.out.println("****Stop");

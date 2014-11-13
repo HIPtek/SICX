@@ -61,18 +61,8 @@
 		</dependency>
 
 		<!-- The metadata service -->
-		<dependency>
-			<groupId>fi.hip</groupId>
-			<artifactId>meta</artifactId>
-			<version>0.5.0</version>
-		</dependency>
 
 		<!-- The hhydra service -->
-		<dependency>
-			<groupId>fi.hip</groupId>
-			<artifactId>hhydra</artifactId>
-			<version>0.0.1</version>
-		</dependency>
 
 		<!-- the json library from json.org -->
 		<!-- The following 4 are for JWebBrowser -->

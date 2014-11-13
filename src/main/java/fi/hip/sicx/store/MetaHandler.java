@@ -20,16 +20,21 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.*;
 import java.security.cert.X509Certificate;
+
 import javax.net.ssl.X509KeyManager;
 
 import org.joni.test.meta.*;
 import org.joni.test.meta.client.*;
+
+import fi.hip.sicx.srp.hessian.TMHostnameVerifier;
 import fi.hip.sicx.vaadin.LocalProperties;
 
 import org.glite.security.trustmanager.ContextWrapper;
+
 import com.caucho.hessian.client.HessianProxyFactory;
 import com.caucho.hessian.client.TMHessianURLConnectionFactory;
 import com.eaio.uuid.UUID;
+
 import org.glite.security.util.DNHandler;
 
 /**

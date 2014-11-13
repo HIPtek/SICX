@@ -32,10 +32,11 @@ import org.glite.security.trustmanager.ContextWrapper;
 import org.hydra.HydraAPI;
 import org.hydra.KeyPiece;
 import org.joni.test.meta.ACLItem;
-import org.joni.test.meta.client.TMHostnameVerifier;
 
 import com.caucho.hessian.client.HessianProxyFactory;
 import com.caucho.hessian.client.TMHessianURLConnectionFactory;
+
+import fi.hip.sicx.srp.hessian.TMHostnameVerifier;
 
 /**
  * A class to work as an interface between the Hydra-webservice SOAP-interface and our Java-client.
@@ -55,7 +56,6 @@ public class HydraConnection {
      * 
      * @param address e.g. "https://vtb-generic-70.cern.ch:8443/3/glite-data-hydra-service/services/Hydra"
      * @param servername a name you want to give for this connection
-     * @param schema optional schema. Defaults to "eds" if given null
      * @param props the properties that get forwarded to trustmanager to set up the ssl connection.
      * @throws ServiceException 
      * @throws GeneralSecurityException 

@@ -2,17 +2,28 @@
 <infinispan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns="urn:infinispan:config:5.0">
 <global>
-<globalJmxStatistics enabled="true" cacheManagerName="hydra3" allowDuplicateDomains="true"/>
+<globalJmxStatistics enabled="true" cacheManagerName="meta" allowDuplicateDomains="true"/>
 </global>
-
-  <namedCache name="hydra">
+  <namedCache name="meta">
     <loaders shared="false">
       <loader
           class="org.infinispan.loaders.file.FileCacheStore"
-          fetchPersistentState="true" ignoreModifications="false"
+          fetchPersistentState="false" ignoreModifications="false"
           purgeOnStartup="true">
         <properties>
-          <property name="location" value="hydra3-storage.dat" />
+          <property name="location" value="meta-storage.dat" />
+        </properties>
+      </loader>
+    </loaders>
+  </namedCache>
+  <namedCache name="users">
+    <loaders shared="false">
+      <loader
+          class="org.infinispan.loaders.file.FileCacheStore"
+          fetchPersistentState="false" ignoreModifications="false"
+          purgeOnStartup="true">
+        <properties>
+          <property name="location" value="users-storage.dat" />
         </properties>
       </loader>
     </loaders>
@@ -24,7 +35,7 @@
           fetchPersistentState="false" ignoreModifications="false"
           purgeOnStartup="true">
         <properties>
-          <property name="location" value="srp3-storage.dat" />
+          <property name="location" value="srp-storage.dat" />
         </properties>
       </loader>
     </loaders>
