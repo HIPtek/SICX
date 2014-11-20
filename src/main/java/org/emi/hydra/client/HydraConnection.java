@@ -17,7 +17,9 @@
 package org.emi.hydra.client;
 
 import java.io.IOException;
+import java.lang.reflect.Proxy;
 import java.math.BigInteger;
+import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
@@ -28,14 +30,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.bouncycastle.crypto.CryptoException;
 import org.glite.security.trustmanager.ContextWrapper;
 import org.hydra.HydraAPI;
 import org.hydra.KeyPiece;
 import org.joni.test.meta.ACLItem;
 
-import com.caucho.hessian.client.HessianProxyFactory;
 import com.caucho.hessian.client.TMHessianURLConnectionFactory;
 
+import fi.hip.sicx.srp.HandshakeException;
+import fi.hip.sicx.srp.SRPAPI;
+import fi.hip.sicx.srp.SRPClient;
+import fi.hip.sicx.srp.SessionKey;
+import fi.hip.sicx.srp.SessionToken;
+import fi.hip.sicx.srp.hessian.HessianSRPProxy;
+import fi.hip.sicx.srp.hessian.HessianSRPProxyFactory;
 import fi.hip.sicx.srp.hessian.TMHostnameVerifier;
 
 /**
@@ -49,7 +58,9 @@ public class HydraConnection {
 
     private String servername;
     private HydraAPI service;
+    private SRPAPI srpService;
     private String _address;
+    private HessianSRPProxyFactory factory;
 
     /**
      * Constructor for HydraConnection
@@ -60,23 +71,40 @@ public class HydraConnection {
      * @throws ServiceException 
      * @throws GeneralSecurityException 
      * @throws IOException 
+     * @throws HandshakeException 
+     * @throws CryptoException 
      */
     public HydraConnection(String address, String servername, Properties props) throws IOException, GeneralSecurityException {
         ContextWrapper _wrapper = new ContextWrapper(props, false);
 
         TMHostnameVerifier verifier = new TMHostnameVerifier();
 
-        HessianProxyFactory factory = new HessianProxyFactory();
+        factory = new HessianSRPProxyFactory();
         TMHessianURLConnectionFactory connectionFactory = new TMHessianURLConnectionFactory();
         connectionFactory.setWrapper(_wrapper);
         connectionFactory.setVerifier(verifier);
         connectionFactory.setHessianProxyFactory(factory);
         factory.setConnectionFactory(connectionFactory);
-        service = (HydraAPI) factory.create(HydraAPI.class, address);
+        
+        if(!address.trim().endsWith("/")){
+            _address = address.trim() + "/";
+        } else {
+            _address = address;
+        }
         
         this.servername = servername;
-        _address = address;
-
+    }
+    
+    public void login(String username, String password) throws MalformedURLException, CryptoException, HandshakeException{
+        srpService = (SRPAPI) factory.create(SRPAPI.class, _address + "SRPService");
+        SessionKey hydra1Session = SRPClient.login(srpService, username, password);
+        
+        System.out.println("asdfasdfa " + _address + "HydraService");
+        service = (HydraAPI) factory.create(HydraAPI.class, _address + "HydraService");
+        HessianSRPProxy proxy = (HessianSRPProxy) Proxy.getInvocationHandler(service);
+        proxy.setSession(new SessionToken(username, hydra1Session.getK()).toString());
+        
+        
     }
 
     /**

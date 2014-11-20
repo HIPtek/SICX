@@ -1,11 +1,14 @@
 package fi.hip.sicx;
 
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Proxy;
 import java.security.GeneralSecurityException;
+import java.util.Properties;
 
 import org.bouncycastle.crypto.CryptoException;
+import org.emi.hydra.client.HydraConnection;
 import org.hydra.HydraAPI;
 import org.hydra.server.HydraServer;
 import org.joni.test.meta.MetaDataAPI;
@@ -89,6 +92,20 @@ public class MetaHydraTest {
         
     }
 
+    @Test
+    public void testHydraConnection() throws IOException, GeneralSecurityException, CryptoException, HandshakeException{
+        HessianSRPProxyFactory factory = HessianSRPProxyFactory.getFactory(TRUSTED_CLIENT_CONFIG_FILE);
+        SRPAPI hydra1SrpService = (SRPAPI) factory.create(SRPAPI.class, hydra1Url + "SRPService");
+        SRPClient.putVerifier(hydra1SrpService, username, password);
+        
+        System.out.println("Opening hydra connection");
+        Properties props = new Properties();
+        props.load(new FileReader(TRUSTED_CLIENT_CONFIG_FILE));
+        HydraConnection hydraConnection = new HydraConnection(hydra1Url, "test", props);
+        hydraConnection.login(username, password);
+        System.out.println(hydraConnection.getServerVersion());
+    }
+    
     @After
     public void stopServers() throws Exception {
         System.out.println("****Stop");
