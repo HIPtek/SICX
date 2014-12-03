@@ -10,3 +10,6 @@ target/
 meta-storage.dat
 users-storage.dat
 hydra-storage.dat
+/testLog.txt
+/trustmanager.log.1
+/srp1-storage.dat/
