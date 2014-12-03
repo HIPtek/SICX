@@ -1109,7 +1109,7 @@ public class GUIComponent
      * @param cert Certificate for authentication
      * @return true if certificate worked, otherwise false
      */
-    public boolean doAuthentication(File cert, String username) {
+    public boolean doAuthentication(File cert, String username, String password) {
     	if(cert == null || !cert.exists()) {
     		// Inform that login was ok
     		guicomponent.notifyUser("User '" + username + "' login failed - please check your username and password.",
@@ -1124,7 +1124,7 @@ public class GUIComponent
             MetaHandler meta = MetaHandler.getInstance();
             try {
                 System.out.println("Initing metadata");
-                meta.init();
+                meta.init(LocalProperties.getInstance(), username, password);
             } catch (Exception ex) {
                 System.out.println("Fail with exception " + ex);
                 ex.printStackTrace();

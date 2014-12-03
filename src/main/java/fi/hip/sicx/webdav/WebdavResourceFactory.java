@@ -22,6 +22,7 @@ import com.bradmcevoy.http.Resource;
 import com.bradmcevoy.http.ResourceFactory;
 
 import fi.hip.sicx.store.MetaHandler;
+import fi.hip.sicx.vaadin.LocalProperties;
 
 /**
  * WebdavResourceFactory class.
@@ -38,14 +39,14 @@ public class WebdavResourceFactory implements ResourceFactory {
 
 	}
 
-	private boolean connectToMeta() {
+	private boolean connectToMeta(String username, String password) {
 		if(meta == null) {
 			System.out.println("Connecting to meta server.");
 			//Initialise meta connection
 			meta = MetaHandler.getInstance();
 			try {
 				System.out.println("Initing metadata");
-				meta.init();
+				meta.init(LocalProperties.getInstance(), username, password);
 			} catch (Exception ex) {
 				System.out.println("Fail with exception " + ex);
 				ex.printStackTrace();

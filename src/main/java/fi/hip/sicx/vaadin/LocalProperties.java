@@ -19,6 +19,7 @@ import java.util.Properties;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 
 /**
  * LocalProperties
@@ -56,6 +57,7 @@ public class LocalProperties extends Properties {
         	if(!configFile.exists()) {
         		generateNewSicxConfigFile();
         		System.out.println("New SICX config file created: " + storeFileName);
+        		store(new FileWriter(configFile), "Automatically generated SICX config file.");
         	}else {
               FileInputStream fis = new FileInputStream(storeFileName);
               super.load(fis);

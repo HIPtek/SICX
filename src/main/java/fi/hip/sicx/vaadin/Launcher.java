@@ -23,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URI;
 
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Handler;
@@ -31,6 +32,7 @@ import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.server.nio.SelectChannelConnector;
 import org.eclipse.jetty.util.URIUtil;
+import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppClassLoader;
 import org.eclipse.jetty.webapp.WebAppContext;
 
@@ -142,7 +144,10 @@ public class Launcher {
     
     String tmpPath = LocalProperties.getInstance().getProperty("tmpPath");
     if(tmpPath == null || tmpPath.trim() == ""){
-        LocalProperties.getInstance().setProperty("tmpPath", webapp.getResource("/").getURI().getPath());
+        Resource res = webapp.getResource("/truststore");
+        URI uri = res.getURI();
+        tmpPath = uri.getPath();
+        LocalProperties.getInstance().setProperty("tmpPath", tmpPath);
     }
     System.out.println("Path /: " + LocalProperties.getInstance().getProperty("tmpPath"));
     

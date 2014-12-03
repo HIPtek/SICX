@@ -99,7 +99,6 @@ public class HydraConnection {
         srpService = (SRPAPI) factory.create(SRPAPI.class, _address + "SRPService");
         SessionKey hydra1Session = SRPClient.login(srpService, username, password);
         
-        System.out.println("asdfasdfa " + _address + "HydraService");
         service = (HydraAPI) factory.create(HydraAPI.class, _address + "HydraService");
         HessianSRPProxy proxy = (HessianSRPProxy) Proxy.getInvocationHandler(service);
         proxy.setSession(new SessionToken(username, hydra1Session.getK()).toString());

@@ -17,6 +17,7 @@
 package fi.hip.sicx.store;
 
 import java.io.IOException;
+import java.lang.reflect.Proxy;
 import java.security.GeneralSecurityException;
 import java.util.*;
 import java.security.cert.X509Certificate;
@@ -26,9 +27,17 @@ import javax.net.ssl.X509KeyManager;
 import org.joni.test.meta.*;
 import org.joni.test.meta.client.*;
 
+import fi.hip.sicx.srp.HandshakeException;
+import fi.hip.sicx.srp.SRPAPI;
+import fi.hip.sicx.srp.SRPClient;
+import fi.hip.sicx.srp.SessionKey;
+import fi.hip.sicx.srp.SessionToken;
+import fi.hip.sicx.srp.hessian.HessianSRPProxy;
+import fi.hip.sicx.srp.hessian.HessianSRPProxyFactory;
 import fi.hip.sicx.srp.hessian.TMHostnameVerifier;
 import fi.hip.sicx.vaadin.LocalProperties;
 
+import org.bouncycastle.crypto.CryptoException;
 import org.glite.security.trustmanager.ContextWrapper;
 
 import com.caucho.hessian.client.HessianProxyFactory;
@@ -36,6 +45,7 @@ import com.caucho.hessian.client.TMHessianURLConnectionFactory;
 import com.eaio.uuid.UUID;
 
 import org.glite.security.util.DNHandler;
+import org.hydra.HydraAPI;
 
 /**
  * MetaHandler
@@ -64,44 +74,23 @@ public class MetaHandler {
     
     public MetaHandler() { }
 
-    public void init() 
-        throws IOException, GeneralSecurityException {
+    public void init(Properties props, String username, String password) 
+        throws IOException, GeneralSecurityException, CryptoException, HandshakeException {
         
-        LocalProperties props = LocalProperties.getInstance();
-        Enumeration<Object> en = props.elements();
-        while(en.hasMoreElements()){
-            System.out.println(en.nextElement());
-        }
-        props.list(System.out);
+//        props.list(System.out);
+        String metaUrl = props.getProperty(ENDPOINT_OPT, "https://localhost:40669/");
 
-
-        // from joni's MetaClient;
-
-        ContextWrapper wrapper = new ContextWrapper(props, true);
-        TMHostnameVerifier verifier = new TMHostnameVerifier();         
+        HessianSRPProxyFactory factory = HessianSRPProxyFactory.getFactory(props);
+        SRPAPI hydra1SrpService = (SRPAPI) factory.create(SRPAPI.class, metaUrl + "SRPService");
+        SessionKey hydra1Session = SRPClient.login(hydra1SrpService, username, password);
         
-        String url = props.getProperty(ENDPOINT_OPT, "https://localhost:40669/MetaService");
-        HessianProxyFactory factory = new HessianProxyFactory();
-        TMHessianURLConnectionFactory connectionFactory = new TMHessianURLConnectionFactory();
-        connectionFactory.setWrapper(wrapper);
-        connectionFactory.setVerifier(verifier);
-        connectionFactory.setHessianProxyFactory(factory);
-        factory.setConnectionFactory(connectionFactory);
-        service = (MetaDataAPI) factory.create(MetaDataAPI.class, url);
-        
+        service = (MetaDataAPI) factory.create(MetaDataAPI.class, metaUrl + "MetaService");
+        HessianSRPProxy proxy = (HessianSRPProxy) Proxy.getInvocationHandler(service);
+        proxy.setSession(new SessionToken(username, hydra1Session.getK()).toString());
+
         System.out.println("Metadata handler initialized, Server version: " + service.getVersion());
 
-        // fetch my own name from the cert
-        X509KeyManager keyman = wrapper.getKeyManager();
-        String aliases[] = keyman.getClientAliases("RSA", null);
-        if(aliases == null || aliases.length == 0)
-            aliases = keyman.getServerAliases("RSA", null);
-        if(aliases != null && aliases.length > 0) {
-            X509Certificate chain[] = keyman.getCertificateChain(aliases[0]);
-            localUserName = DNHandler.getSubject(chain[0]).getRFCDNv2();
-            System.out.println("Username from certificate: '" + localUserName + "'.");
-            ensureLocalUserRoot();
-        }
+//        ensureLocalUserRoot();
     }
 
     public MetaDataAPI getService() {

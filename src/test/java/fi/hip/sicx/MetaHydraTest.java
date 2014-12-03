@@ -1,16 +1,21 @@
 package fi.hip.sicx;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Proxy;
+import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.util.Properties;
 
 import org.bouncycastle.crypto.CryptoException;
 import org.emi.hydra.client.HydraConnection;
 import org.hydra.HydraAPI;
+import org.hydra.KeyPiece;
 import org.hydra.server.HydraServer;
+import org.joni.test.meta.ACLItem;
 import org.joni.test.meta.MetaDataAPI;
 import org.joni.test.meta.server.MetaServer;
 import org.junit.After;
@@ -24,6 +29,7 @@ import fi.hip.sicx.srp.SessionKey;
 import fi.hip.sicx.srp.SessionToken;
 import fi.hip.sicx.srp.hessian.HessianSRPProxy;
 import fi.hip.sicx.srp.hessian.HessianSRPProxyFactory;
+import fi.hip.sicx.store.MetaHandler;
 
 public class MetaHydraTest {
 
@@ -46,7 +52,6 @@ public class MetaHydraTest {
 
     @Before
     public void setupServers() throws Exception {
-        System.out.println("Starting hydras....");
         hydra1 = new HydraServer();
         hydra1.configure(HYDRA1_PURGE_CONFIG_FILE);
         hydra1.start();
@@ -56,7 +61,6 @@ public class MetaHydraTest {
         hydra3 = new HydraServer();
         hydra3.configure(HYDRA3_PURGE_CONFIG_FILE);
         hydra3.start();
-        System.out.println("Starting meta....");
         metaServer = new MetaServer();
         metaServer.configure(META_PURGE_CONFIG_FILE);
         metaServer.start();
@@ -90,6 +94,14 @@ public class MetaHydraTest {
         HessianSRPProxy proxy = (HessianSRPProxy) Proxy.getInvocationHandler(service);
         proxy.setSession(new SessionToken(username, hydra1Session.getK()).toString());
         
+        KeyPiece piece = new KeyPiece();
+        piece.keyPiece = BigInteger.valueOf(666);
+        piece.addACLItem(new ACLItem(username, true, true));
+        service.putKeyPiece("aa", piece);
+        
+        KeyPiece out = service.getKeyPiece("aa");
+        assertEquals(out.keyPiece, piece.keyPiece);
+        
     }
 
     @Test
@@ -98,17 +110,29 @@ public class MetaHydraTest {
         SRPAPI hydra1SrpService = (SRPAPI) factory.create(SRPAPI.class, hydra1Url + "SRPService");
         SRPClient.putVerifier(hydra1SrpService, username, password);
         
-        System.out.println("Opening hydra connection");
         Properties props = new Properties();
         props.load(new FileReader(TRUSTED_CLIENT_CONFIG_FILE));
         HydraConnection hydraConnection = new HydraConnection(hydra1Url, "test", props);
         hydraConnection.login(username, password);
-        System.out.println(hydraConnection.getServerVersion());
+        hydraConnection.getServerVersion();
+    }
+    
+    @Test
+    public void testMetaHandler() throws FileNotFoundException, IOException, GeneralSecurityException, CryptoException, HandshakeException{
+        addUserSRP(username, password);
+        MetaHandler metaHandler = MetaHandler.getInstance();
+        Properties props = new Properties();
+        props.load(new FileReader(TRUSTED_CLIENT_CONFIG_FILE));
+        metaHandler.init(props, username, password);
+        MetaDataAPI service = metaHandler.getService();
+        service.getVersion();
+        
+        
+        
     }
     
     @After
     public void stopServers() throws Exception {
-        System.out.println("****Stop");
         if (hydra1 != null) {
             hydra1.stop();
             hydra1 = null;

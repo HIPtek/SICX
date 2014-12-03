@@ -28,6 +28,7 @@ import org.joni.test.meta.SLA;
 import org.junit.Test;
 
 import fi.hip.sicx.sla.SLAManager;
+import fi.hip.sicx.vaadin.LocalProperties;
 
 import org.joni.test.meta.*;
 
@@ -46,7 +47,7 @@ public class MetaDataClientTest implements StorageClientObserver {
         MetaHandler metah = MetaHandler.getInstance();
         try {
             System.out.println("Initing metadata");
-            metah.init();
+            metah.init(LocalProperties.getInstance(LocalProperties.getInstance(), username, password));
         } catch (Exception ex) {
             System.out.println("Fail with exception " + ex);
             ex.printStackTrace();
