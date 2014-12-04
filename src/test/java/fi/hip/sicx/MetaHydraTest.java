@@ -126,9 +126,6 @@ public class MetaHydraTest {
         metaHandler.init(props, username, password);
         MetaDataAPI service = metaHandler.getService();
         service.getVersion();
-        
-        
-        
     }
     
     @After

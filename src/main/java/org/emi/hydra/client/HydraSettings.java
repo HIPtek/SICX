@@ -59,7 +59,6 @@ public class HydraSettings {
         
         this.endpoints = new ArrayList<HydraConnection>();
         readHydraSettings(LocalProperties.getInstance());
-        this.userid = System.getProperty("user.name"); // uses unix user name as default
     }
 
     /**
@@ -71,7 +70,6 @@ public class HydraSettings {
         
         this.endpoints = new ArrayList<HydraConnection>();
         readHydraSettings(props);
-        this.userid = System.getProperty("user.name"); // uses unix user name as default
     }
 
     /**
@@ -124,51 +122,6 @@ public class HydraSettings {
         return this.userid;
     }
 
-    /**
-     * Simple, dumb parser to read a predefined settings.xml file. Does a bad job on distincting specifically
-     * hydra-services.
-     * 
-     * @param filename
-     * @throws ParserConfigurationException
-     * @throws SAXException
-     * @throws IOException
-     * @throws ServiceException 
-     * @throws GeneralSecurityException 
-     */
-    public void readHydraSettingsXml(File filename, Properties sslProps) throws ParserConfigurationException, SAXException, IOException, GeneralSecurityException {
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        // Using factory get an instance of document builder
-        DocumentBuilder db = dbf.newDocumentBuilder();
-        // parse using builder to get DOM representation of the XML file
-        Document dom = db.parse(filename);
-        Element docEle = dom.getDocumentElement();
-        // <service>
-        NodeList nl = docEle.getElementsByTagName("service");
-
-        // parse endpoints
-        // UGLY. There has to be a better way to parse XML...
-        if (nl != null && nl.getLength() > 0) {
-            for (int i = 0; i < nl.getLength(); i++) {
-                Element el = (Element) nl.item(i);
-                // <service name="name-of-server">
-                String serviceName = el.getAttribute("name");
-                NodeList params = el.getElementsByTagName("endpoint");
-
-                String endpoint = null;
-                // so far in this level...
-                // <service name="hydra-server">
-                // <parameters>
-                // <endpoint>...
-                if (params != null && params.getLength() > 0) {
-                    endpoint = params.item(0).getTextContent();
-                    // System.out.println(endpoint);
-                }
-                // System.out.println(serviceName);
-                HydraConnection hc = new HydraConnection(endpoint, serviceName, sslProps);
-                this.endpoints.add(hc);
-            }
-        }
-    }
     /**
      * Reads the hydra settings from the given properties file and opens connections to them.
      * 

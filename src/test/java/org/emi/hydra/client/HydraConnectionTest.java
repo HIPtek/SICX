@@ -45,14 +45,10 @@ public class HydraConnectionTest {
         HydraSettings hs = new HydraSettings();
         Properties sslProps = new Properties();
         sslProps.load(new FileReader(inputPath + "meta-client-trusted.conf"));
-
-        try {
-            hs.readHydraSettingsXml(new File(inputPath + "hydra-services.xml"), sslProps);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            fail("Reading settings.xml should not fail");
-        }
+        Properties hydraConf = new Properties();
+        hydraConf.load(new FileReader(inputPath + "hydras.propeties"));
+        hs.readHydraSettings(hydraConf);
+        
         int connection_amount = hs.getEndpointsArray().size();
         assertEquals("There should be 3 endpoints", connection_amount, 3);
 
