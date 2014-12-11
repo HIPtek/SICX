@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import org.bouncycastle.crypto.CryptoException;
 import org.emi.hydra.client.HydraConnection;
+import org.emi.hydra.client.HydraSettings;
 import org.hydra.HydraAPI;
 import org.hydra.KeyPiece;
 import org.hydra.server.HydraServer;
@@ -81,9 +82,18 @@ public class MetaHydraTest {
         SRPClient.putVerifier(metaSrpService, username, passwordString);
 
     }
+    
+    @Test
+    public void testHydraSettings() throws FileNotFoundException, IOException, GeneralSecurityException{
+        addUserSRP(username, password);
+
+        Properties props = new Properties();
+        props.load(new FileReader(TRUSTED_CLIENT_CONFIG_FILE));
+        HydraSettings settings = new HydraSettings(props);
+    }
 
     @Test
-    public void testFilePut() throws Exception {
+    public void testKeyPut() throws Exception {
         addUserSRP(username, password);
         
         HessianSRPProxyFactory factory = HessianSRPProxyFactory.getFactory(TRUSTED_CLIENT_CONFIG_FILE);
